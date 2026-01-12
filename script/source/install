@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -o errexit
+
+[[ -d ~/desktop ]] || mkdir ~/desktop
+
+# git clone git@github.com:belimoth/system.git
+
+[[ -d ~/desktop/code ]] || mkdir ~/desktop/code
+
+touch ~/desktop/code/.cafe.ini

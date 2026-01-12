@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# usage:
+# project-clone <slug> && project-edit $_
+
+set -o errexit
+
+[[ -z $1 ]] && { echo error; exit 1; }
+
+slug=$1
+org=$(  echo $slug | cut -d'/' -f1 )
+repo=$( echo $slug | cut -d'/' -f2 )
+[[ $slug == */* ]] || org=$GITHUB_USERNAME
+slug=$org/$repo
+
+cd ~/desktop/code
+
+mkdir --parents $org && cd $_
+
+git clone $( forge-url-gh $slug )
+
+cd $repo
+
+# [[ -f ./script/zach-remotes ]] && bash ./script/zach-remotes

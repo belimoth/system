@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# test for unstaged changes
+
+git diff-files --quiet -- || {
+	echo "error: unstaged changes"
+	exit 1
+}
+
+# test for uncommitted changes
+
+git diff-index --cached --quiet HEAD -- || {
+	echo "error: uncommitted changes"
+	exit 1
+}

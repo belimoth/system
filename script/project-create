@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# usage:
+# project-create <slug>
+
+set -o errexit
+
+[[ -z $1 ]] && { echo error; exit 1; }
+
+slug=$1
+name=$( echo $slug | cut -d'/' -f1 )
+repo=$( echo $slug | cut -d'/' -f2 )
+[[ $slug == */* ]] || name=$GITHUB_USERNAME
+slug=$name/$repo
+
+#
+
+[[ -d ~/desktop/code/$slug ]] && { echo error; exit 1; }
+
+mkdir --parents ~/desktop/code/$slug && cd $_
+
+git init
+
+#
+
+touch .gitignore
+git add .gitignore
+git commit --allow-empty-message --message ""
+
+# TODO handle case where repo already exists
+
+forge-create-repo-gh $slug
+
+git remote add                  origin $( forge-url-gh $slug )
+git remote set-url --add --push origin $( forge-url-gh $slug )
+
+git push --set-upstream origin master

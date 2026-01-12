@@ -1,0 +1,12 @@
+#!/bin/bash
+
+year=$( date +"%Y" )
+name=$( date --iso-8601 ).txt
+root=~/desktop/notes
+base=~/desktop/notes/$year
+path=~/desktop/notes/$year/$name
+
+[[ -d $base ]] || mkdir --parents $base
+[[ -f $path ]] || touch $path
+
+code $root $path --reuse-window

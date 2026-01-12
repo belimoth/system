@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# usage:
+# forge-url-bb <slug>
+
+echo git@bitbucket.org:${1}.git

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+zac-help-bash() {
+	bash --help
+}
+
+zac-help-bash-shell() {
+	bash -c "help set"
+}
+
+zac-help-bash-builtins() {
+	bash -c "help"
+}

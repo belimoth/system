@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# usage:
+# github_create_repo <slug>
+
+set -o errexit
+
+source ~/desktop/system/script/source/common.sh
+
+assert-os
+assert-python
+assert-python-package requests
+
+[[ -z $GITHUB_USERNAME ]] && { echo "error: missing GITHUB_USERNAME environment variable"; exit 1; }
+
+token_path=~/desktop/system/credentials/token-gh
+
+[[ -f $token_path ]] || { echo "error: missing token file"; exit 1; }
+
+# shellcheck disable=SC2155
+export GITHUB_TOKEN=$( cat $token_path )
+
+python ~/desktop/system/script/source/forge_create_repo_gh.py $1

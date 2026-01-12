@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -o errexit
+
+git ls-files --ignored --exclude-from=.gitignore

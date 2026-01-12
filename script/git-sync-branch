@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+
+branch=$( git rev-parse --abbrev-ref HEAD )
+base=$( basename $( git rev-parse --abbrev-ref origin/HEAD ) )
+
+set -o xtrace
+
+git switch $base
+git pull --ff-only
+git switch $branch
+git merge --no-ff $base

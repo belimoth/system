@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# usage:
+# project-unclone <slug>
+
+set -o errexit
+
+[[ -z $1 ]] && { echo error; exit 1; }
+
+slug=$1
+user=$( echo $slug | cut -d'/' -f1 )
+repo=$( echo $slug | cut -d'/' -f2 )
+[[ $slug == */* ]] || user=$GITHUB_USERNAME
+slug=$name/$repo
+
+cd ~/desktop/code
+
+[[ -d "$slug" ]] || { echo "error: folder '$slug' doesn't exit"; exit 1; }
+
+cd $slug
+
+[[ -d ".git" ]] || { echo "error: folder $1 is not a git repo"; exit 1; }
+
+[[ $( git config --get remote.origin.url) == https://github.com/user/* ]] || \
+[[ $( git config --get remote.origin.url) == git@github.com:user/*     ]] || \
+{ echo "error: missing or incorrect origin"; exit 1; }
+
+# TODO check all branches for unpushed changes
+
+[[ -f "local/uninstall.sh" ]] && bash local/uninstall.sh
+
+git ls-files -z | xargs -0 rm -f
+find . -name ".DS_Store" -delete
+find . -name "*.pyc"     -delete
+find . -type d -empty    -delete
+rm -rf ".git"
+
+cd ..
+
+# test if project folder is empty and then remove it, otherwise rename appending date and index
+
+[[ -z "$(ls -A $1)" ]] && rm -rf "$1" || {
+	dir=$1--$( date +%F )
+	# guarantee that existing folders have sequential indexes
+	i=0 && for f in $name--*; do [[ $f != "$name--$i" ]] && mv $f "$name--$i"; i=$( expr $i + 1 ); done
+	mv "$1" "$name--$( ls -dq $name--* | wc -l | xargs )"
+}

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -o errexit
+set -o xtrace
+
+git commit --amend --no-edit --allow-empty-message

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# usage:
+# git-archive-branch <branch>
+
+tag=archive/$( date --iso-8601 )/$1
+git tag $tag origin/$1
+git push origin $tag
+git push --delete origin $1
