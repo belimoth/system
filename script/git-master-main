@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -o errexit
+
+# usage:
+# git-master-main <slug>
+
+git branch --move master main
+git fetch origin --prune-tags
+git branch main --set-upstream-to origin/master
+git remote set-head origin --auto
+gh repo edit $slug --default-branch main
+git branch -D master
+git push origin :master
