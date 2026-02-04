@@ -13,7 +13,7 @@ repo=$( echo $slug | cut -d'/' -f2 )
 [[ $slug == */* ]] || org=$GITHUB_USERNAME
 slug=$org/$repo
 
-[[ -d ~/desktop/code/$slug ]] || { echo error; exit 1; }
+[[ -d ~/desktop/code/$slug ]] || project-clone $slug
 
 cd ~/desktop/code/$slug
 
