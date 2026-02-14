@@ -8,10 +8,10 @@ set -o errexit
 [[ -z $1 ]] && { echo error; exit 1; }
 
 slug=$1
-org=$(  echo $slug | cut -d'/' -f1 )
+club=$( echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
-[[ $slug == */* ]] || org=$GITHUB_USERNAME
-slug=$org/$repo
+[[ $slug == */* ]] || club=$GITHUB_USERNAME
+slug=$club/$repo
 
 [[ -d ~/desktop/code/$slug ]] || code-clone $slug
 
