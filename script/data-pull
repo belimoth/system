@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # usage:
-# data-pull <path> [--dry-run]
+# data-pull <path> [--dryrun]
 
 set -o errexit
 
