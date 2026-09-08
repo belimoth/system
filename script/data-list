@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# usage:
+# data-list <path>
+
+set -o errexit
+
+aws --profile data.subhelion.com s3 ls s3://data.subhelion.com/$1 --recursive --summarize --human-readable
