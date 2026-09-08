@@ -6,5 +6,5 @@ C:\Program Files\Python38\Scripts
 C:\Users\Zach\AppData\Local\GitHubDesktop\bin
 C:\Users\Zach\AppData\Local\Microsoft\WindowsApps
 C:\Users\Zach\AppData\Local\Programs\Microsoft VS Code\bin
-C:\Users\Zach\Desktop\tools\bin
+C:\Users\Zach\Desktop\tool\bin
 C:\Users\Zach\scoop\shims

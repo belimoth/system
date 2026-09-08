@@ -11,6 +11,7 @@ source rc-git.sh
 source rc-ssh-agent.sh
 
 alias ls="ls -1"
+# alias python=python3
 
 # todo
 
@@ -38,6 +39,7 @@ edit () {
 update() {
 	python -m pip install --upgrade pip
 	scoop update '*'
+	butler upgrade
 }
 
 export SHLVL=1

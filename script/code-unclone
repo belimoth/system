@@ -11,7 +11,7 @@ slug=$1
 user=$( echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
 [[ $slug == */* ]] || user=$GITHUB_USERNAME
-slug=$name/$repo
+slug="$user/$repo"
 
 cd ~/desktop/code
 
@@ -21,8 +21,8 @@ cd $slug
 
 [[ -d ".git" ]] || { echo "error: folder $1 is not a git repo"; exit 1; }
 
-[[ $( git config --get remote.origin.url) == https://github.com/user/* ]] || \
-[[ $( git config --get remote.origin.url) == git@github.com:user/*     ]] || \
+[[ $( git config --get remote.origin.url ) == https://github.com/$user/* ]] || \
+[[ $( git config --get remote.origin.url ) == git@github.com:$user/*     ]] || \
 { echo "error: missing or incorrect origin"; exit 1; }
 
 # TODO check all branches for unpushed changes
@@ -35,7 +35,7 @@ find . -name "*.pyc"     -delete
 find . -type d -empty    -delete
 rm -rf ".git"
 
-cd ..
+cd ../..
 
 # test if project folder is empty and then remove it, otherwise rename appending date and index
 
