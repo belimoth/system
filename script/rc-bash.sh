@@ -4,7 +4,7 @@
 PS1="\w> "
 # PS1="\u@\h \w> "
 
-set -o nounset
+# set -o nounset
 
 # history
 

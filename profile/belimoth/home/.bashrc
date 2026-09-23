@@ -27,13 +27,19 @@ clone () {
 }
 
 edit () {
+	[[ -z $1 ]] && {
+		cd ~/desktop/code/belimoth
+		code . --reuse-window
+		exit
+	}
+
 	[[ $1 == "system" ]] && {
 		cd ~/desktop/system
 		code . --reuse-window
-	} || {
-		code-edit $@
+		exit
 	}
 
+	code-edit $@
 }
 
 update() {
