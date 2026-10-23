@@ -13,7 +13,7 @@ assert-python-package requests
 
 [[ -z $BITBUCKET_USERNAME ]] && { echo "error: missing BITBUCKET_USERNAME environment variable"; exit 1; }
 
-token_path=~/desktop/system/key/token-bb
+token_path=~/desktop/system/null/key/token-bb
 
 [[ -f $token_path ]] || { echo "error: missing token file"; exit 1; }
 
