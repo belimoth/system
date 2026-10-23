@@ -170,6 +170,6 @@
 	"typescript.autoClosingTags": false,
 	"git.openRepositoryInParentFolders": "never",
 	"vscode_custom_css.imports": [
-		"file:///C:/Users/zach/Desktop/system/profile/belimoth/vscode/style.css"
+		"file:///C:/Users/zach/Desktop/system/user/belimoth/vscode/style.css"
 	],
 }

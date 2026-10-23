@@ -1,11 +1,11 @@
 export MSYS=winsymlinks:nativestrict
 
-export PROFILE=belimoth
+export USER=belimoth
 export GITHUB_USERNAME=belimoth
 export GITHUB_TOKEN=$( cat ~/desktop/system/null/key/token-gh )
 
 export PATH=$PATH:~/desktop/system/shell
-export PATH=$PATH:~/desktop/system/profile/$PROFILE/shell
+export PATH=$PATH:~/desktop/system/user/$USER/shell
 
 source rc-bash.sh
 source rc-git.sh
@@ -29,7 +29,7 @@ clone () {
 
 edit () {
 	[[ -z $1 ]] && {
-		cd ~/desktop/code/belimoth
+		cd ~/desktop/code/$USER
 		code . --reuse-window
 		exit
 	}

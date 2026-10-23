@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -o errexit
+
+ln --force ~/desktop/system/user/belimoth/home/.bash_profile ~/.bash_profile
+ln --force ~/desktop/system/user/belimoth/home/.bashrc       ~/.bashrc
+ln --force ~/desktop/system/user/belimoth/home/.inputrc      ~/.inputrc
+ln --force ~/desktop/system/user/belimoth/home/.gitconfig    ~/.gitconfig
+
+ln --force ~/desktop/system/user/belimoth/vscode/keybindings.json ~/appdata/roaming/code/user/keybindings.json
+ln --force ~/desktop/system/user/belimoth/vscode/settings.json    ~/appdata/roaming/code/user/settings.json
