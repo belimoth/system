@@ -155,7 +155,6 @@
 	"C_Cpp.autocomplete": "disabled",
 	"C_Cpp.codeFolding": "disabled",
 	"editor.maxTokenizationLineLength": 0,
-	"editor.semanticHighlighting.enabled": false,
 	"C_Cpp.enhancedColorization": "disabled",
 	"[markdown]": {
 		"editor.defaultFormatter": "fcrespo82.markdown-table-formatter"
@@ -171,5 +170,5 @@
 	"git.openRepositoryInParentFolders": "never",
 	"vscode_custom_css.imports": [
 		"file:///C:/Users/zach/Desktop/system/user/belimoth/vscode/style.css"
-	],
+	]
 }
