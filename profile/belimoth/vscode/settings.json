@@ -6,13 +6,11 @@
 	"editor.comments.ignoreEmptyLines": false,
 	"editor.copyWithSyntaxHighlighting": false,
 	"editor.dragAndDrop": false,
-	"editor.highlightActiveIndentGuide": false,
 	"editor.hover.enabled": false,
 	"editor.insertSpaces": false,
-	"editor.lightbulb.enabled": false,
+	"editor.lightbulb.enabled": "off",
 	"editor.matchBrackets": "never",
 	"editor.parameterHints.enabled": false,
-	"editor.renderIndentGuides": false,
 	"editor.renderLineHighlight": "none",
 	"editor.roundedSelection": false,
 	"editor.selectionHighlight": false,
@@ -39,7 +37,7 @@
 	},
 
 	"editor.inlineSuggest.enabled": false,
-	"editor.wordBasedSuggestions": false,
+	"editor.wordBasedSuggestions": "off",
 
 	// text editor/files
 	"files.eol": "\n",
@@ -148,5 +146,30 @@
 	"explorer.confirmDragAndDrop": false,
 	"remote.SSH.remotePlatform": {
 		"rpi.local": "linux"
-	}
+	},
+	"editor.guides.indentation": false,
+	"editor.guides.highlightActiveIndentation": false,
+	"window.commandCenter": false,
+	"workbench.layoutControl.enabled": false,
+	"workbench.editor.empty.hint": "hidden",
+	"C_Cpp.autocomplete": "disabled",
+	"C_Cpp.codeFolding": "disabled",
+	"editor.maxTokenizationLineLength": 0,
+	"editor.semanticHighlighting.enabled": false,
+	"C_Cpp.enhancedColorization": "disabled",
+	"[markdown]": {
+		"editor.defaultFormatter": "fcrespo82.markdown-table-formatter"
+	},
+	"debug.console.wordWrap": false,
+	"html.format.wrapAttributes": "preserve",
+	"html.format.wrapLineLength": 0,
+	"javascript.autoClosingTags": false,
+	"javascript.suggestionActions.enabled": false,
+	"javascript.updateImportsOnPaste.enabled": false,
+	"javascript.validate.enable": false,
+	"typescript.autoClosingTags": false,
+	"git.openRepositoryInParentFolders": "never",
+	"vscode_custom_css.imports": [
+		"file:///C:/Users/zach/Desktop/system/profile/belimoth/vscode/style.css"
+	],
 }
