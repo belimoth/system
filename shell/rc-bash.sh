@@ -1,5 +1,5 @@
 # usage (in .bashrc):
-# source $path-to-system/script/rc-bash.sh
+# source $path-to-system/shell/rc-bash.sh
 
 PS1="\w> "
 # PS1="\u@\h \w> "

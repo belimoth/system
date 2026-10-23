@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -o errexit
+
+name="${1:-$GITHUB_USERNAME}"
+echo $name
+
+[[ -d ~/desktop/code/$name ]] || { echo error; exit 1; }
+
+ls -1 --almost-all ~/desktop/code/$name

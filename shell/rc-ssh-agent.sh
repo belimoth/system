@@ -1,5 +1,5 @@
 # usage (in .bashrc):
-# source $path-to-system/script/rc-ssh-agent.sh
+# source $path-to-system/shell/rc-ssh-agent.sh
 
 # usage:
 # agent-start

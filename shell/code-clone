@@ -21,4 +21,4 @@ git clone $( forge-url-gh $slug )
 
 cd $repo
 
-[[ -f ./script/profile/$PROFILE ]] && bash ./script/zach-remotes
+[[ -f ./shell/profile/$PROFILE ]] && bash ./shell/zach-remotes

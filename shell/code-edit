@@ -17,6 +17,6 @@ slug=$org/$repo
 
 cd ~/desktop/code/$slug
 
-[[ -f ./script/start ]] || code . --reuse-window && ./script/start
+[[ -f ./shell/start ]] || code . --reuse-window && ./shell/start
 
 exit

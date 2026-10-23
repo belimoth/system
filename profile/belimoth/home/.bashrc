@@ -2,9 +2,10 @@ export MSYS=winsymlinks:nativestrict
 
 export PROFILE=belimoth
 export GITHUB_USERNAME=belimoth
+export GITHUB_TOKEN=$( cat ~/desktop/system/key/token-gh )
 
-export PATH=$PATH:~/desktop/system/script
-export PATH=$PATH:~/desktop/system/profile/$PROFILE/script
+export PATH=$PATH:~/desktop/system/shell
+export PATH=$PATH:~/desktop/system/profile/$PROFILE/shell
 
 source rc-bash.sh
 source rc-git.sh

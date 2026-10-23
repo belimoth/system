@@ -5,7 +5,7 @@
 
 set -o errexit
 
-source ~/desktop/system/script/source/common.sh
+source ~/desktop/system/shell/source/common.sh
 
 assert-os
 assert-python
@@ -20,4 +20,4 @@ token_path=~/desktop/system/key/token-gh
 # shellcheck disable=SC2155
 export GITHUB_TOKEN=$( cat $token_path )
 
-python ~/desktop/system/script/source/forge_create_repo_gh.py $1
+python ~/desktop/system/shell/source/forge_create_repo_gh.py $1

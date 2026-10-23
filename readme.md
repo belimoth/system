@@ -9,7 +9,7 @@
 ## SSH helpers
 ```sh
 # in .bashrc
-source ~/desktop/system/script/rc-ssh-agent.sh
+source ~/desktop/system/shell/rc-ssh-agent.sh
 
 agent-start
 agent-clear
