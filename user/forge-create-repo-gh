@@ -11,7 +11,7 @@ assert-os
 assert-python
 assert-python-package requests
 
-[[ -z $GITHUB_USERNAME ]] && { echo "error: missing GITHUB_USERNAME environment variable"; exit 1; }
+[[ -z $GITHUB_USER ]] && { echo "error: missing GITHUB_USER environment variable"; exit 1; }
 
 token_path=~/desktop/system/null/key/token-gh
 

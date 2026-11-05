@@ -2,9 +2,9 @@
 
 set -o errexit
 
-name="${1:-$GITHUB_USERNAME}"
+name="${1:-$GITHUB_USER}"
 echo $name
 
 [[ -d ~/desktop/code ]] || { echo error; exit 1; }
 
-ls -1 --almost-all --directory ~/desktop/code/*/*
+ls -1 --almost-all --directory ~/desktop/code/**

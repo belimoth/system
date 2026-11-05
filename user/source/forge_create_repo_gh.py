@@ -5,7 +5,7 @@ import json
 # https://docs.python-requests.org/
 import requests
 
-username = os.environ.get( "GITHUB_USERNAME" )
+username = os.environ.get( "GITHUB_USER" )
 token    = os.environ.get( "GITHUB_TOKEN" )
 
 session = requests.Session()

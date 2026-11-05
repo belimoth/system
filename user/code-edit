@@ -10,7 +10,7 @@ set -o errexit
 slug=$1
 org=$(  echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
-[[ $slug == */* ]] || org=$GITHUB_USERNAME
+[[ $slug == */* ]] || org=$GITHUB_USER
 slug=$org/$repo
 
 [[ -d ~/desktop/code/$slug ]] || { echo error; exit 1; }

@@ -10,7 +10,7 @@ set -o errexit
 slug=$1
 user=$( echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
-[[ $slug == */* ]] || user=$GITHUB_USERNAME
+[[ $slug == */* ]] || user=$GITHUB_USER
 slug="$user/$repo"
 
 cd ~/desktop/code

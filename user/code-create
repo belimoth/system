@@ -10,7 +10,7 @@ set -o errexit
 slug=$1
 name=$( echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
-[[ $slug == */* ]] || name=$GITHUB_USERNAME
+[[ $slug == */* ]] || name=$GITHUB_USER
 slug=$name/$repo
 
 #
