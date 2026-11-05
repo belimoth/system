@@ -23,11 +23,11 @@ alias ls="ls -1"
 # use python_extra
 # use vs_code
 
-clone () {
-	code-clone $@
+pull() {
+	code_pull $@
 }
 
-edit () {
+edit() {
 	[[ -z $1 ]] && {
 		cd ~/desktop/code/$USER
 		code . --reuse-window
@@ -41,6 +41,10 @@ edit () {
 	}
 
 	code-edit $@
+}
+
+save() {
+	git-commit-empty
 }
 
 update() {
