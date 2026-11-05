@@ -27,7 +27,7 @@ cd $slug
 
 # TODO check all branches for unpushed changes
 
-[[ -f "local/uninstall.sh" ]] && bash local/uninstall.sh
+[[ -f "null/uninstall" ]] && bash null/uninstall
 
 git ls-files -z | xargs -0 rm -f
 find . -name ".DS_Store" -delete
