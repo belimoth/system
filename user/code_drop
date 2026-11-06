@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # usage:
-# code-unclone <slug>
+# code_drop <slug>
 
 set -o errexit
 
@@ -12,6 +12,7 @@ user=$( echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
 [[ $slug == */* ]] || user=$GITHUB_USER
 slug="$user/$repo"
+echo "slug: $slug"
 
 cd ~/desktop/code
 
@@ -21,9 +22,10 @@ cd $slug
 
 [[ -d ".git" ]] || { echo "error: folder $1 is not a git repo"; exit 1; }
 
-[[ $( git config --get remote.origin.url ) == https://github.com/$user/* ]] || \
-[[ $( git config --get remote.origin.url ) == git@github.com:$user/*     ]] || \
-{ echo "error: missing or incorrect origin"; exit 1; }
+echo "origin: $( git config --get remote.origin.url )"
+# [[ $( git config --get remote.origin.url ) == https://github.com/$user/* ]] || \
+# [[ $( git config --get remote.origin.url ) == git@github.com:$user/*     ]] || \
+# { echo "error: missing or incorrect origin"; exit 1; }
 
 # TODO check all branches for unpushed changes
 
@@ -39,7 +41,7 @@ cd ../..
 
 # test if project folder is empty and then remove it, otherwise rename appending date and index
 
-[[ -z "$(ls -A $1)" ]] && rm -rf "$1" || {
+[[ -z "$(ls -A $slug)" ]] && rm -rf "$slug" || {
 	dir=$1--$( date +%F )
 	# guarantee that existing folders have sequential indexes
 	i=0 && for f in $name--*; do [[ $f != "$name--$i" ]] && mv $f "$name--$i"; i=$( expr $i + 1 ); done
