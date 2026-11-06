@@ -1,5 +1,5 @@
 # usage (in script):
-# source $path-to-system/shell/source/common.sh
+# source ~/desktop/user/source/common.sh
 
 # usage (in script):
 # assert-os

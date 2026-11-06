@@ -5,7 +5,7 @@
 
 set -o errexit
 
-source ~/desktop/system/shell/source/common.sh
+source ~/desktop/user/source/common.sh
 
 assert-os
 assert-python
@@ -13,11 +13,11 @@ assert-python-package requests
 
 [[ -z $GITHUB_USER ]] && { echo "error: missing GITHUB_USER environment variable"; exit 1; }
 
-token_path=~/desktop/system/null/key/token-gh
+token_path=~/desktop/null/key/token-gh
 
 [[ -f $token_path ]] || { echo "error: missing token file"; exit 1; }
 
 # shellcheck disable=SC2155
 export GITHUB_TOKEN=$( cat $token_path )
 
-python ~/desktop/system/shell/source/forge_create_repo_gh.py $1
+python ~/desktop/user/source/forge_create_repo_gh.py $1

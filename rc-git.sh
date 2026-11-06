@@ -1,5 +1,5 @@
 # usage (in .bashrc):
-# source $path-to-system/shell/rc-git.sh
+# source ~/desktop/user/rc-git.sh
 
 # disable git pager
 export PAGER=

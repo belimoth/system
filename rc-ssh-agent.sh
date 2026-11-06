@@ -1,14 +1,11 @@
 # usage (in .bashrc):
-# source $path-to-system/shell/rc-ssh-agent.sh
+# source ~/desktop/user/rc-ssh-agent.sh
 
 # usage:
 # agent-start
 # agent-list
 # agent-clear
 # agent-kill
-
-# resources:
-# system/notes/ssh-agent.sh
 
 agent-start() {
 	status=$( ssh-add -l > /dev/null 2>&1; echo $? )
