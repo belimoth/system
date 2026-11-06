@@ -1,0 +1,25 @@
+#!/bin/bash
+
+help_bash() {
+	bash --help
+}
+
+help_bash_shell() {
+	bash -c "help set"
+}
+
+help_bash_builtins() {
+	bash -c "help"
+}
+
+help_git() {
+	git help
+}
+
+help_git_commands() {
+	git help -a
+}
+
+help_git_concepts() {
+	git help -g
+}
