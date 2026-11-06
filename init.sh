@@ -1,19 +1,19 @@
-# usage (in script):
-# source ~/desktop/user/source/common.sh
+set -o allexport
 
-# usage (in script):
-# assert-os
-# assert-python
-# assert-python-package $package
+use() {
+	echo ok
+}
 
-assert-os() {
+#
+
+assert_os() {
     [[ $( uname --operating-system ) == "Msys" ]] || {
         echo "error: unsupported os"
         exit 1
     }
 }
 
-assert-python() {
+assert_python() {
     # TODO test
     [[ $( command -v python ) == *"WindowsApps"* ]] && {
         echo "error: app execution alias detected, consult 'docs/101/windows.txt'"
@@ -31,7 +31,7 @@ assert-python() {
     }
 }
 
-assert-python-package() {
+assert_python_package() {
     [[ -z $1 ]] && {
         echo "error"
         exit 1
@@ -41,4 +41,30 @@ assert-python-package() {
         echo "error: package $1 not installed, run 'pip install $1'"
         exit 1
     }
+}
+
+#
+
+edit() {
+	[[ -z $1 ]] && {
+		cd ~/desktop/code/$USER
+		code . --reuse-window
+		exit
+	}
+
+	[[ $1 == "user" ]] && {
+		cd ~/desktop/user
+		code . --reuse-window
+		exit
+	}
+
+	code-edit $@
+}
+
+pull() {
+	code_pull $@
+}
+
+save() {
+	~/desktop/user/git/git_commit_empty
 }

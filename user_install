@@ -4,11 +4,13 @@ set -o errexit
 
 [[ -d ~/desktop ]] || mkdir ~/desktop
 
-# git clone git@github.com:belimoth/user.git
+cd ~/desktop
+
+[[ -d ~/desktop/user ]] || mkdir ~/desktop/user
+
+[[ -d ~/desktop/user/.git ]] || git clone git@github.com:belimoth/user.git
 
 [[ -d ~/desktop/code ]] || mkdir ~/desktop/code
 [[ -d ~/desktop/data ]] || mkdir ~/desktop/data
 [[ -d ~/desktop/file ]] || mkdir ~/desktop/file
 [[ -d ~/desktop/null ]] || mkdir ~/desktop/null
-
-# touch ~/desktop/code/.cafe.ini
