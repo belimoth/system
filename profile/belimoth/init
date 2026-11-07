@@ -1,0 +1,59 @@
+MSYS=winsymlinks:nativestrict
+
+USER=belimoth
+GITHUB_USER=belimoth
+GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh ) # todo interferes with scoop
+
+PATH=$PATH:~/desktop/user
+PATH=$PATH:~/desktop/user/profile/$USER
+
+source ~/desktop/user/source/init/init_bash.sh
+source ~/desktop/user/source/init/init_git.sh
+source ~/desktop/user/source/init/init_ssh.sh
+
+user_init() {
+	source ~/desktop/user/source/init/init.sh
+}
+
+user_init
+
+user_install() {
+    use os
+    use scoop
+	scoop install 7zip
+	scoop install cloc
+	scoop install gh
+	scoop install shellcheck
+	scoop install wget
+	scoop install yt-dlp
+	scoop install zip
+}
+
+alias ls="ls -1"
+alias scoop="env --unset GITHUB_TOKEN scoop"
+
+# todo
+
+# use aws_cli
+# use git
+# use git_extra
+# use python
+# use python_extra
+# use vs_code
+
+user_install() {
+	scoop install 7zip
+	scoop install cloc
+	scoop install gh
+	scoop install shellcheck
+	scoop install wget
+	scoop install yt-dlp
+	scoop install zip
+}
+
+user_update() {
+	python -m pip install --upgrade pip
+	scoop update
+	scoop update "*"
+	butler upgrade --assume-yes
+}
