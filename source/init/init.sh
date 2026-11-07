@@ -10,6 +10,8 @@ use_os() {
 use_scoop() {
     [[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
 
+    alias scoop="env --unset GITHUB_TOKEN scoop"
+
     scoop --version || {
         echo "error: missing scoop"
         exit 1

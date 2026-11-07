@@ -2,7 +2,7 @@ MSYS=winsymlinks:nativestrict
 
 USER=belimoth
 GITHUB_USER=belimoth
-GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh ) # todo interferes with scoop
+GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 
 PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
@@ -30,7 +30,6 @@ user_install() {
 }
 
 alias ls="ls -1"
-alias scoop="env --unset GITHUB_TOKEN scoop"
 
 # todo
 
