@@ -3,8 +3,7 @@
 set -o errexit
 
 name="${1:-$GITHUB_USER}"
-echo $name
 
-[[ -d ~/desktop/code ]] || { echo error; exit 1; }
+code_list $name
 
-ls -1 --almost-all --directory ~/desktop/code/**
+# todo

@@ -3,10 +3,17 @@
 set -o errexit
 
 name="${1:-$GITHUB_USER}"
-echo $name
 
 [[ -d ~/desktop/code/$name ]] || { echo error; exit 1; }
 
-[[ $* == *--all* ]] && echo ALL
+[[ $* == *--all* ]] && {
+	echo
+}
 
-ls -1 --almost-all ~/desktop/code/$name
+# ls -1 --almost-all ~/desktop/code/$name
+
+# cd ~/desktop/code/$name
+# find . -mindepth 1 -maxdepth 1 -type d | sed "s|\./|$name/|g"
+
+cd ~/desktop/code
+find . -mindepth 2 -maxdepth 2 -type d | sed "s|\./||g"

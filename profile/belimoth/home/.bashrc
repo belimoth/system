@@ -1,22 +1,23 @@
-export MSYS=winsymlinks:nativestrict
-
-export USER=belimoth
-export GITHUB_USER=belimoth
-export GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
-
-export PATH=$PATH:~/desktop/user
-export PATH=$PATH:~/desktop/user/profile/$USER
 set -o allexport
 
-init() {
-	source init.sh
+MSYS=winsymlinks:nativestrict
+
+USER=belimoth
+GITHUB_USER=belimoth
+GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
+
+PATH=$PATH:~/desktop/user
+PATH=$PATH:~/desktop/user/profile/$USER
+
+source ~/desktop/user/init/init_bash.sh
+source ~/desktop/user/init/init_git.sh
+source ~/desktop/user/init/init_ssh.sh
+
+user_init() {
+	source ~/desktop/user/init/init.sh
 }
 
-init
-
-source rc-bash.sh
-source rc-git.sh
-source rc-ssh-agent.sh
+user_init
 
 alias ls="ls -1"
 [[ -x $( command -v python ) ]] || [[ -x $( command -v python3 ) ]] && alias python=python3
@@ -30,9 +31,20 @@ alias ls="ls -1"
 # use python_extra
 # use vs_code
 
-update() {
+user_install() {
+	scoop install 7zip
+	scoop install cloc
+	scoop install gh
+	scoop install shellcheck
+	scoop install wget
+	scoop install yt-dlp
+	scoop install zip
+}
+
+user_update() {
 	python -m pip install --upgrade pip
-	scoop update '*'
+	env --unset GITHUB_TOKEN scoop update
+	env --unset GITHUB_TOKEN scoop update '*'
 	butler upgrade --assume-yes
 }
 

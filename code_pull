@@ -8,17 +8,17 @@ set -o errexit
 [[ -z $1 ]] && { echo error; exit 1; }
 
 slug=$1
-org=$(  echo $slug | cut -d'/' -f1 )
+name=$( echo $slug | cut -d'/' -f1 )
 repo=$( echo $slug | cut -d'/' -f2 )
-[[ $slug == */* ]] || org=$GITHUB_USER
-slug=$org/$repo
+[[ $slug == */* ]] || name=$GITHUB_USER
+slug=$name/$repo
 
 cd ~/desktop/code
 
-mkdir --parents $org && cd $_
+mkdir --parents $name && cd $_
 
-git clone $( forge-url-gh $slug )
+git clone $( ~/desktop/user/forge/forge_url_gh $slug )
 
 cd $repo
 
-[[ -f ./shell/user/$USER ]] && bash ./shell/zach-remotes
+[[ -f ./user/profile/$USER/pull ]] && bash ./user/profile

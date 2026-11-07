@@ -30,9 +30,9 @@ git commit --allow-empty-message --message ""
 
 # TODO handle case where repo already exists
 
-forge-create-repo-gh $slug
+forge_new_gh $slug
 
-git remote add                  origin $( forge-url-gh $slug )
-git remote set-url --add --push origin $( forge-url-gh $slug )
+git remote add                  origin $( forge_url_gh $slug )
+git remote set-url --add --push origin $( forge_url_gh $slug )
 
 git push --set-upstream origin master

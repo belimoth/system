@@ -14,9 +14,8 @@ assert_os() {
 }
 
 assert_python() {
-    # TODO test
     [[ $( command -v python ) == *"WindowsApps"* ]] && {
-        echo "error: app execution alias detected, consult 'docs/101/windows.txt'"
+        echo "error: app execution alias detected"
         exit 1
     }
 
