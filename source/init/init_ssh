@@ -1,3 +1,5 @@
+#!/bin/bash
+
 agent_start() {
 	status=$( ssh-add -l > /dev/null 2>&1; echo $? )
 	[[ $status == 2 ]] && eval $( ssh-agent )

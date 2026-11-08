@@ -2,15 +2,17 @@
 
 set -o errexit
 
-[[ -d ~/desktop ]] || mkdir ~/desktop
+alias md=mkdir
+
+[[ -d ~/desktop ]] || md ~/desktop
 
 cd ~/desktop
 
-[[ -d ~/desktop/user ]] || mkdir ~/desktop/user
+[[ -d ~/desktop/user ]] || md ~/desktop/user
 
-[[ -d ~/desktop/user/.git ]] || git clone git@github.com:belimoth/user.git
+[[ -d ~/desktop/user/.git ]] || git clone git@github.com:subhelion/user.git
 
-[[ -d ~/desktop/code ]] || mkdir ~/desktop/code
-[[ -d ~/desktop/data ]] || mkdir ~/desktop/data
-[[ -d ~/desktop/file ]] || mkdir ~/desktop/file
-[[ -d ~/desktop/null ]] || mkdir ~/desktop/null
+[[ -d ~/desktop/code ]] || md ~/desktop/code
+[[ -d ~/desktop/data ]] || md ~/desktop/data
+[[ -d ~/desktop/file ]] || md ~/desktop/file
+[[ -d ~/desktop/null ]] || md ~/desktop/null
