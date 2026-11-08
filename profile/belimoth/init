@@ -7,12 +7,13 @@ GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
 
-source ~/desktop/user/source/init/init_bash.sh
-source ~/desktop/user/source/init/init_git.sh
-source ~/desktop/user/source/init/init_ssh.sh
+source ~/desktop/user/source/init/init_bash
+source ~/desktop/user/source/init/init_git
+source ~/desktop/user/source/init/init_ssh
+source ~/desktop/user/source/init/init_windows
 
 user_init() {
-	source ~/desktop/user/source/init/init.sh
+	source ~/desktop/user/source/init/init
 }
 
 user_init
@@ -20,6 +21,8 @@ user_init
 user_install() {
     use os
     use scoop
+
+	scoop install aws
 	scoop install 7zip
 	scoop install cloc
 	scoop install gh
@@ -30,6 +33,7 @@ user_install() {
 }
 
 alias ls="ls -1"
+alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
 # todo
 
@@ -40,19 +44,37 @@ alias ls="ls -1"
 # use python_extra
 # use vs_code
 
-user_install() {
-	scoop install 7zip
-	scoop install cloc
-	scoop install gh
-	scoop install shellcheck
-	scoop install wget
-	scoop install yt-dlp
-	scoop install zip
+user_status() {
+	echo aws   ; aws    --version; echo
+	echo bash  ; bash   --version; echo
+	echo git   ; git    --version; echo
+	echo python; python --version; echo
+	echo scoop ; scoop  --version; echo
 }
 
 user_update() {
+	butler upgrade --assume-yes
 	python -m pip install --upgrade pip
 	scoop update
 	scoop update "*"
-	butler upgrade --assume-yes
+}
+
+#
+
+pull() {
+	slug=$1
+	name=$( echo $slug | cut -d'/' -f1 )
+	repo=$( echo $slug | cut -d'/' -f2 )
+	[[ $slug == */* ]] || name=$GITHUB_USER
+	slug=$name/$repo
+
+	code_pull $@
+
+	echo $slug
+	echo $slug
+	echo $slug
+	echo $slug
+	echo $slug
+	echo $slug
+	echo $slug
 }

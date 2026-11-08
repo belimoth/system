@@ -47,7 +47,12 @@ assert_python_package() {
 
 install_github() {
     scoop install gh
+
+    copilot -i uninstall
     gh copilot --remove
+    npm uninstall -g @github/copilot
+    winget uninstall GitHub.Copilot
+
     gh extension remove github/gh-copilot
     gh config set telemetry disabled
 }
