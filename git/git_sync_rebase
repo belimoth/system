@@ -4,6 +4,6 @@ set -o errexit
 set -o xtrace
 
 git fetch
-git-check
+git_check
 git rebase || git rebase --abort
 git push
