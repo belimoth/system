@@ -21,4 +21,4 @@ git clone $( ~/desktop/user/hub/hub_url $slug )
 
 cd $repo
 
-[[ -f ./user/profile/$USER/pull ]] && bash ./user/profile
+# [[ -f ./user/profile/$USER/pull ]] && bash ./user/profile # todo check functions for remote instead

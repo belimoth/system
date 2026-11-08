@@ -9,6 +9,24 @@ use_os() {
     }
 }
 
+use_bash() {
+    set -o allexport
+
+    PS1="\w> "
+    # PS1="\u@\h \w> "
+
+    HISTCONTROL=erasedups
+    HISTSIZE=10000
+    shopt -s histappend
+
+    PROMPT_COMMAND="history -a"
+}
+
+use_git() {
+    PATH=$PATH:~/desktop/user/git
+    export PAGER=
+}
+
 use_scoop() {
     [[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
 

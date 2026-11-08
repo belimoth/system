@@ -7,11 +7,6 @@ GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
 
-source ~/desktop/user/source/init/init_bash
-source ~/desktop/user/source/init/init_git
-source ~/desktop/user/source/init/init_ssh
-source ~/desktop/user/source/init/init_windows
-
 user_init() {
 	source ~/desktop/user/source/init/init
 }
@@ -35,6 +30,11 @@ user_install() {
 alias ls="ls -1"
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
+use bash
+use git
+source ~/desktop/user/source/init/init_hub
+source ~/desktop/user/source/init/init_windows
+
 # todo
 
 # use aws_cli
@@ -45,11 +45,16 @@ alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 # use vs_code
 
 user_status() {
-	echo aws   ; aws    --version; echo
-	echo bash  ; bash   --version; echo
-	echo git   ; git    --version; echo
-	echo python; python --version; echo
-	echo scoop ; scoop  --version; echo
+	# todo
+
+	echo user status aws ; aws  --version; echo
+	echo user status bash; bash --version; echo
+	echo user status git ; git  --version; echo
+
+	echo user status python; python --version; echo
+	echo user status python; pip freeze; echo
+	echo user status scoop ; scoop --version; echo
+	echo user status scoop ; scoop status; echo
 }
 
 user_update() {
