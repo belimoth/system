@@ -1,6 +1,3 @@
 #!/bin/bash
 
-# usage:
-# forge-url-gh <slug>
-
 echo git@github.com:${1}.git

@@ -70,11 +70,13 @@ pull() {
 
 	code_pull $@
 
-	echo $slug
-	echo $slug
-	echo $slug
-	echo $slug
-	echo $slug
-	echo $slug
-	echo $slug
+	cd ~/desktop/code/$slug
+
+	git ls-remote https://github.com/belimoth/$repo  > /dev/null 2>&1 && \
+	git ls-remote https://github.com/subhelion/$repo > /dev/null 2>&1 && {
+		git remote rm                   origin
+		git remote add                  origin git@github.com:subhelion/$repo.git
+		git remote set-url --add --push origin git@github.com:subhelion/$repo.git
+		git remote set-url --add --push origin git@github.com:belimoth/$repo.git
+	}
 }

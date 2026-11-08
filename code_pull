@@ -17,7 +17,7 @@ cd ~/desktop/code
 
 mkdir --parents $name && cd $_
 
-git clone $( ~/desktop/user/forge/forge_url_gh $slug )
+git clone $( ~/desktop/user/hub/hub_url $slug )
 
 cd $repo
 

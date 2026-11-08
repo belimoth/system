@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# usage:
-# code-create <slug>
-
 set -o errexit
 
 [[ -z $1 ]] && { echo error; exit 1; }
@@ -30,9 +27,9 @@ git commit --allow-empty-message --message ""
 
 # TODO handle case where repo already exists
 
-forge_new_gh $slug
+hub_new $slug
 
-git remote add                  origin $( forge_url_gh $slug )
-git remote set-url --add --push origin $( forge_url_gh $slug )
+git remote add                  origin $( hub_url $slug )
+git remote set-url --add --push origin $( hub_url $slug )
 
-git push --set-upstream origin master
+git push --set-upstream origin main

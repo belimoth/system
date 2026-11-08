@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# usage:
-# github_create_repo <slug>
-
 set -o errexit
 
 source ~/desktop/user/source/common.sh
 
-assert-os
-assert-python
-assert-python-package requests
+assert_os
+assert_pythonw
+assert_python_package requests
 
 [[ -z $GITHUB_USER ]] && { echo "error: missing GITHUB_USER environment variable"; exit 1; }
 
