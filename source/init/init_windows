@@ -1,5 +1,0 @@
-#!/bin/bash
-
-windows_credential_manager() {
-	control.exe /name Microsoft.CredentialManager
-}

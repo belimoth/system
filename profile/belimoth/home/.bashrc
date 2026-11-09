@@ -1,6 +1,6 @@
 set -o allexport
 
-source ~/desktop/user/profile/belimoth/init.sh
+source ~/desktop/user/profile/belimoth/init
 
 SHLVL=1
 

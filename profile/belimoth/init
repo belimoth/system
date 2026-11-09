@@ -8,7 +8,7 @@ PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
 
 user_init() {
-	source ~/desktop/user/source/init/init
+	source ~/desktop/user/source/init
 }
 
 user_init
@@ -32,8 +32,7 @@ alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
 use bash
 use git
-source ~/desktop/user/source/init/init_hub
-source ~/desktop/user/source/init/init_windows
+use windows
 
 # todo
 

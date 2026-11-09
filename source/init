@@ -27,6 +27,34 @@ use_git() {
     export PAGER=
 }
 
+use_hub() {
+    set -o allexport
+
+    agent_start() {
+        status=$( ssh-add -l > /dev/null 2>&1; echo $? )
+        [[ $status == 2 ]] && eval $( ssh-agent )
+
+        status=$( ssh-add -l > /dev/null 2>&1; echo $? )
+        [[ $status == 1 ]] && ssh-add
+    }
+
+    agent_list() {
+        ssh-add -l
+    }
+
+    agent_clear() {
+        ssh-add -D
+    }
+
+    agent_kill() {
+        eval $( ssh-agent -k )
+    }
+
+    ssh_test() {
+        echo ok
+    }
+}
+
 use_scoop() {
     [[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
 
@@ -35,6 +63,18 @@ use_scoop() {
     scoop --version || {
         echo "error: missing scoop"
         exit 1
+    }
+}
+
+use_windows() {
+    set -o allexport
+
+    windows_env() {
+        rundll32.exe sysdm.cpl,EditEnvironmentVariables
+    }
+
+    windows_credential_manager() {
+        control -name Microsoft.CredentialManager
     }
 }
 
