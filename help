@@ -17,9 +17,18 @@ help_git() {
 }
 
 help_git_commands() {
-	git help -a
+	git help --all
 }
 
 help_git_concepts() {
-	git help -g
+	git help --guides
+}
+
+help_user() {
+	echo code_drop <slug>
+	echo code_edit <slug>
+	echo code_list
+	echo code_list_all
+	echo code_pull <slug>
+	echo code_push <slug>
 }
