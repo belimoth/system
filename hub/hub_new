@@ -4,9 +4,9 @@ set -o errexit
 
 source ~/desktop/user/source/common.sh
 
-assert_os
-assert_pythonw
-assert_python_package requests
+use os
+use python
+use_python_package requests
 
 [[ -z $GITHUB_USER ]] && { echo "error: missing GITHUB_USER environment variable"; exit 1; }
 
