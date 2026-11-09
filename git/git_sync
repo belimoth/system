@@ -4,6 +4,6 @@ set -o errexit
 set -o xtrace
 
 git fetch
-git-check
+git_check
 git merge --ff-only
 git push

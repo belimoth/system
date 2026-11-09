@@ -140,3 +140,7 @@ pull() {
 save() {
 	~/desktop/user/git/git_commit_empty
 }
+
+sync() {
+    ~/desktop/user/git/git_sync
+}
