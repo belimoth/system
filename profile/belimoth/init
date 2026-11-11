@@ -1,19 +1,52 @@
 MSYS=winsymlinks:nativestrict
 
+alias def=function
+
+def fast_init_load {
+	[[ -f ~/desktop/null/user/init ]] || return 1
+	set -o allexport
+	source ~/desktop/null/user/init
+	set +o allexport
+	echo fast
+	return 0
+}
+
+fast_init_load && return 0
+
 USER=belimoth
 GITHUB_USER=belimoth
 GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 
+echo slow
+
 PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
 
-user_init() {
-	source ~/desktop/user/source/init
+source ~/desktop/user/source/init
+
+def fast_init_save {
+	# unset "ProgramFiles(x86)"
+	# unset "CommonProgramFiles(x86)"
+	md --parents ~/desktop/null/user
+	[[ -f ~/desktop/null/user/init ]] && rm ~/desktop/null/user/init
+	touch ~/desktop/null/user/init
+	shopt -op >> ~/desktop/null/user/init
+	# env >> ~/desktop/null/user/init
+	export -p | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
+	# declare -p | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
+	declare -f | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
 }
 
-user_init
+def fast_init_thaw {
+	rm ~/desktop/null/user/init
+}
 
-user_install() {
+def user_init {
+	source ~/desktop/user/source/init
+	source ~/desktop/user/profile/$USER/init
+}
+
+def user_install {
     use os
     use scoop
 
@@ -27,12 +60,32 @@ user_install() {
 	scoop install zip
 }
 
+def user_link {
+	set -o errexit
+	set -o xtrace
+
+	ln --force ~/desktop/user/profile/belimoth/home/.bash_profile ~/.bash_profile
+	ln --force ~/desktop/user/profile/belimoth/home/.bashrc       ~/.bashrc
+	ln --force ~/desktop/user/profile/belimoth/home/.inputrc      ~/.inputrc
+	ln --force ~/desktop/user/profile/belimoth/home/.gitconfig    ~/.gitconfig
+
+	ln --force ~/desktop/user/profile/belimoth/vscode/keybindings.json ~/appdata/roaming/code/user/keybindings.json
+	ln --force ~/desktop/user/profile/belimoth/vscode/settings.json    ~/appdata/roaming/code/user/settings.json
+}
+
 alias ls="ls -1"
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
 use bash
 use git
+use hub
 use windows
+
+# use aws
+# use 7zip
+# use cloc
+# use wget
+# use zip
 
 # todo
 
@@ -43,7 +96,7 @@ use windows
 # use python_extra
 # use vs_code
 
-user_status() {
+def user_status {
 	# todo
 
 	echo user status aws ; aws  --version; echo
@@ -56,31 +109,83 @@ user_status() {
 	echo user status scoop ; scoop status; echo
 }
 
-user_update() {
+def user_update {
 	butler upgrade --assume-yes
 	python -m pip install --upgrade pip
 	scoop update
 	scoop update "*"
 }
 
-#
+def key_list_all {
+	cmdkey -list
+}
 
-pull() {
-	slug=$1
-	name=$( echo $slug | cut -d'/' -f1 )
-	repo=$( echo $slug | cut -d'/' -f2 )
-	[[ $slug == */* ]] || name=$GITHUB_USER
-	slug=$name/$repo
+def key_manage {
+	rundll32.exe keymgr.dll,KRShowKeyMgr
+}
 
-	code_pull $@
+def key_pull {
+	use os
+	use python
+	use_python_package keyring
+}
 
-	cd ~/desktop/code/$slug
+def key_push {
+	echo
+}
 
-	git ls-remote https://github.com/belimoth/$repo  > /dev/null 2>&1 && \
-	git ls-remote https://github.com/subhelion/$repo > /dev/null 2>&1 && {
-		git remote rm                   origin
-		git remote add                  origin git@github.com:subhelion/$repo.git
-		git remote set-url --add --push origin git@github.com:subhelion/$repo.git
-		git remote set-url --add --push origin git@github.com:belimoth/$repo.git
+use code
+use data
+
+def edit {
+	[[ -z $1 ]] && {
+		cd ~/desktop/code/$USER
+		code . --reuse-window
+		exit
 	}
+
+	[[ $1 == "user" ]] && {
+		cd ~/desktop/user
+		code . --reuse-window
+		exit
+	}
+
+	code-edit $@
+}
+
+def pull {
+	code_pull $@
+}
+
+# def pull {
+# 	slug=$1
+# 	name=$( echo $slug | cut -d'/' -f1 )
+# 	repo=$( echo $slug | cut -d'/' -f2 )
+# 	[[ $slug == */* ]] || name=$GITHUB_USER
+# 	slug=$name/$repo
+#
+# 	code_pull $@
+#
+# 	cd ~/desktop/code/$slug
+#
+# 	git ls-remote https://github.com/belimoth/$repo  > /dev/null 2>&1 && \
+# 	git ls-remote https://github.com/subhelion/$repo > /dev/null 2>&1 && {
+# 		git remote rm                   origin
+# 		git remote add                  origin git@github.com:subhelion/$repo.git
+# 		git remote set-url --add --push origin git@github.com:subhelion/$repo.git
+# 		git remote set-url --add --push origin git@github.com:belimoth/$repo.git
+# 	}
+# }
+
+def push {
+	echo
+}
+
+def save {
+	use git
+	git_commit_empty
+}
+
+def sync {
+    git_sync
 }

@@ -2,35 +2,98 @@
 
 set -o allexport
 
-use_os() {
-    [[ $( uname --operating-system ) == "Msys" ]] || {
-        echo "error: unsupported os"
-        exit 1
-    }
+alias set="local -; set"
+alias def=function
+alias md=mkdir
+alias pass=":"
+
+def use_os {
+	[[ $( uname --operating-system ) == "Msys" ]] || { echo "error: unsupported os"; return 1; }
 }
 
-use_bash() {
+def use_bash {
+	export PS1="\w> "
+}
+
+def use_git {
+	PATH=$PATH:~/desktop/user/git
+	export PAGER=
+}
+
+def use_google_once {
+	set -o xtrace
+
+	reg add "HKLM\Software\Policies\Microsoft\Edge" -v DefaultSearchProviderEnabled   -t REG_DWORD -d 1                                        -f
+	reg add "HKLM\Software\Policies\Microsoft\Edge" -v DefaultSearchProviderName      -t REG_SZ    -d "Google"                                 -f
+	reg add "HKLM\Software\Policies\Microsoft\Edge" -v DefaultSearchProviderSearchURL -t REG_SZ    -d "https://google.com{searchTerms}&udm=14" -f
+}
+
+def use_hub {
+	[[ -z $( command -v gh ) ]] && {
+		use scoop
+		scoop install gh
+
+		copilot -i uninstall
+        gh copilot --remove
+        npm uninstall -g @github/copilot
+        winget uninstall GitHub.Copilot
+
+        gh extension remove github/gh-copilot
+        gh config set telemetry disabled
+	}
+
+	def hub_new {
+		use os
+		use python
+		use python_package requests
+		return 1
+
+		[[ -z $GITHUB_USER ]] && { echo "error: missing GITHUB_USER environment variable"; exit 1; }
+
+		token_path=~/desktop/null/key/token-gh
+
+		[[ -f $token_path ]] || { echo "error: missing token file"; exit 1; }
+
+		# shellcheck disable=SC2155
+		export GITHUB_TOKEN=$( cat $token_path )
+
+		python ~/desktop/user/source/forge_create_repo_gh.py $1
+	}
+
+	def hub_url {
+		echo git@github.com:${1}.git
+	}
+}
+
+def use_itch {
+	echo https://broth.itch.zone/butler/{platform}/{version}/archive/default
+}
+
+def use_msvc {
+	# winget install --id Microsoft.VisualStudio.BuildTools
+	pass
+}
+
+def use_python_package {
+	[[ -z $1 ]] && { echo error; return 1; }
+	python -c "import $1" > /dev/null 2>&1 || { echo "error: package $1 not installed, run 'pip install $1'"; return 1; }
+}
+
+def use_scoop {
+	[[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
+
+	alias scoop="env --unset GITHUB_TOKEN scoop"
+
+	scoop --version || {
+		echo "error: missing scoop"
+		exit 1
+	}
+}
+
+def use_ssh {
     set -o allexport
 
-    PS1="\w> "
-    # PS1="\u@\h \w> "
-
-    HISTCONTROL=erasedups
-    HISTSIZE=10000
-    shopt -s histappend
-
-    PROMPT_COMMAND="history -a"
-}
-
-use_git() {
-    PATH=$PATH:~/desktop/user/git
-    export PAGER=
-}
-
-use_hub() {
-    set -o allexport
-
-    agent_start() {
+    def agent_start {
         status=$( ssh-add -l > /dev/null 2>&1; echo $? )
         [[ $status == 2 ]] && eval $( ssh-agent )
 
@@ -38,111 +101,149 @@ use_hub() {
         [[ $status == 1 ]] && ssh-add
     }
 
-    agent_list() {
+    def agent_list {
         ssh-add -l
     }
 
-    agent_clear() {
+    def agent_clear {
         ssh-add -D
     }
 
-    agent_kill() {
+    def agent_kill {
         eval $( ssh-agent -k )
     }
 
-    ssh_test() {
+    def ssh_test {
         echo ok
     }
 }
 
-use_python() {
-    [[ $( command -v python ) == *"WindowsApps"* ]] && { echo "error: app execution alias detected" exit 1; }
-    [[ -x $( command -v python ) ]] || { echo "error: python not installed"; exit 1; }
-    [[ $( python -c "import sys; print( sys.version_info[0] )" ) == "3" ]] || { echo "error: python 3 not installed"; exit 1; }
+def use_vcpkg {
+	pass
 }
 
-use_python_package() {
-    [[ -z $1 ]] && {
-        echo "error"
-        exit 1
-    }
+def use_windows {
+	set -o allexport
 
-    python -c "import $1" > /dev/null 2>&1 || {
-        echo "error: package $1 not installed, run 'pip install $1'"
-        exit 1
-    }
+	def windows_env {
+		rundll32.exe sysdm.cpl,EditEnvironmentVariables
+	}
+
+	def windows_credential_manager {
+		control -name Microsoft.CredentialManager
+	}
+
+	def windows_info (
+		set +o errexit
+		set -o xtrace
+
+		npm list
+		pip list
+		scoop list
+		winget list
+	)
 }
 
-use_scoop() {
-    [[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
+# winget
 
-    alias scoop="env --unset GITHUB_TOKEN scoop"
-
-    scoop --version || {
-        echo "error: missing scoop"
-        exit 1
-    }
+def use_python {
+	has python || winget install --exact --id python.python.3.14
+	[[ $( command -v python ) == *"WindowsApps"* ]] && { echo "error: app execution alias detected"; return 1; }
+	[[ $( python -c "import sys; print( sys.version_info[0] )" ) == "3" ]] || { echo "error: python 3 not installed"; return 1; }
 }
 
-use_windows() {
-    set -o allexport
+# scoop
 
-    windows_env() {
-        rundll32.exe sysdm.cpl,EditEnvironmentVariables
-    }
-
-    windows_credential_manager() {
-        control -name Microsoft.CredentialManager
-    }
+def use_scoop_package {
+	set -o allexport
+	eval "def use_$1 { has $1 || scoop install $1; }"
 }
 
-use() {
-    [[ $( type -t use_$1 ) == function ]] || { echo error; return 1; }
-    [[ $( type -t use_$1 ) == function ]] && use_$1
+use_scoop_package aws
+
+def use_aws {
+	has aws || scoop install aws
+	# scoop install 7zip
+	# scoop install cloc
+	# scoop install gh
+	# scoop install shellcheck
+	# scoop install wget
+	# scoop install yt-dlp
+	# scoop install zip
 }
 
 #
 
-install_github() {
-    scoop install gh
+def use_code {
+	pass
+}
 
-    copilot -i uninstall
-    gh copilot --remove
-    npm uninstall -g @github/copilot
-    winget uninstall GitHub.Copilot
+def use_data {
+	def data_list {
+		aws --profile data.subhelion.com s3 ls s3://data.subhelion.com/$1 --recursive --summarize --human-readable
+	}
 
-    gh extension remove github/gh-copilot
-    gh config set telemetry disabled
+	def data_pull {
+		# data_pull <path> [--dryrun]
+		set -o errexit
+		mkdir --parents ~/desktop/data/data.subhelion.com
+		aws --profile data.subhelion.com s3 sync s3://data.subhelion.com/$1 ~/desktop/data/data.subhelion.com/$1 $2
+	}
+	def data_push {
+		# data_push <path> [--dryrun]
+		set -o errexit
+		mkdir --parents ~/desktop/data/data.subhelion.com
+		aws --profile data.subhelion.com s3 sync ~/desktop/data/data.subhelion.com/$1 s3://data.subhelion.com/$1 $2
+	}
 }
 
 #
 
-edit() {
-	[[ -z $1 ]] && {
-		cd ~/desktop/code/$USER
-		code . --reuse-window
-		exit
-	}
-
-	[[ $1 == "user" ]] && {
-		cd ~/desktop/user
-		code . --reuse-window
-		exit
-	}
-
-	code-edit $@
+def help_bash {
+	bash --help
 }
 
-pull() {
-	code_pull $@
+def help_bash_shell {
+	bash -c "help set"
 }
 
-use git
-
-save() {
-	git_commit_empty
+def help_bash_builtins {
+	bash -c "help"
 }
 
-sync() {
-    git_sync
+def help_git {
+	git help
+}
+
+def help_git_commands {
+	git help --all
+}
+
+def help_git_concepts {
+	git help --guides
+}
+
+def help_user {
+	echo "code_drop <slug>"
+	echo "code_edit <slug>"
+	echo "code_list"
+	echo "code_list_all"
+	echo "code_pull <slug>"
+	echo "code_push <slug>"
+}
+
+#
+
+def has {
+	[[ -z $1 ]] || return 1
+	[[ -x $( command -v $1 ) ]] || return 1
+}
+
+def use {
+	[[ $( type -t use_$1 ) == function ]] || { echo error; return 1; }
+	[[ $( type -t use_$1 ) == function ]] && use_$1
+}
+
+def view {
+	pass
 }

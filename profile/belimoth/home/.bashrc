@@ -1,6 +1,16 @@
 set -o allexport
 
-source ~/desktop/user/profile/belimoth/init
+PS1="\w> "
+# PS1="\u@\h \w> "
+
+HISTCONTROL=erasedups
+HISTSIZE=10000
+shopt -s histappend
+
+PROMPT_COMMAND="history -a"
+
+TIMEFORMAT="%Rs"
+time source ~/desktop/user/profile/belimoth/init
 
 SHLVL=1
 
