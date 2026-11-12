@@ -4,7 +4,7 @@ set -o allexport
 
 alias set="local -; set"
 alias def=function
-alias md=mkdir
+alias md="mkdir --parents"
 alias pass=":"
 
 def use_os {

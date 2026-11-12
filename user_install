@@ -2,8 +2,6 @@
 
 set -o errexit
 
-alias md="mkdir --parents
-
 [[ -d ~/desktop/code ]] || md ~/desktop/code
 [[ -d ~/desktop/data ]] || md ~/desktop/data
 [[ -d ~/desktop/file ]] || md ~/desktop/file
