@@ -1,4 +1,0 @@
-#!/bin/bash
-
-[[ -x $( command -v $1 ) ]] || { echo "error"; exit 1;}
-code $( which $1 )

@@ -14,15 +14,11 @@ def use_scoop_package {
 	eval "def use_$1 { has $1 || scoop install $1; }"
 }
 
-# use aws
-# scoop install 7zip
-# scoop install cloc
-# scoop install gh
-# scoop install shellcheck
-# scoop install wget
-# scoop install yt-dlp
-# scoop install zip
-
-def get_aws {
-	scoop install aws
-}
+def get_7zip       { scoop install 7zip; }
+def get_aws        { scoop install aws; }
+def get_cloc       { scoop install cloc; }
+def get_gh         { scoop install gh; }
+def get_shellcheck { scoop install shellcheck; }
+def get_wget       { scoop install wget; }
+def get_ytdlp      { scoop install yt-dlp; }
+def get_zip        { scoop install zip; }

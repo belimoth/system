@@ -1,0 +1,5 @@
+#!/bin/bash
+
+def get_git    { winget install --source winget --id git.git; }
+def get_python { winget install --source winget --id python.python.3.14; }
+def get_vscode { winget install --source winget --id microsoft.vscode; }

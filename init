@@ -12,11 +12,6 @@ def use_os {
 	[[ $( uname --operating-system ) == "Msys" ]] || { echo "error: unsupported os"; return 1; }
 }
 
-def use_python_package {
-	[[ -z $1 ]] && { echo error; return 1; }
-	python -c "import $1" > /dev/null 2>&1 || { echo "error: package $1 not installed, run 'pip install $1'"; return 1; }
-}
-
 def has {
 	[[ -z $1 ]] || return 1
 	[[ -x $( command -v $1 ) ]] || return 1
@@ -30,5 +25,6 @@ def use {
 }
 
 def view {
+	# todo list possible commands without params, or show a command in its location
 	pass
 }

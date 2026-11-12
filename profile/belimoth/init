@@ -2,8 +2,6 @@ set -o allexport
 
 MSYS=winsymlinks:nativestrict
 
-alias def=function
-
 USER=belimoth
 GITHUB_USER=belimoth
 GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
@@ -11,38 +9,29 @@ GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
 
-source ~/desktop/user/source/init
+source init
 
 def user_init {
-	source ~/desktop/user/source/init
 	source ~/desktop/user/profile/$USER/init
 }
 
 def user_install {
     use os
-    use scoop
+    use get_scoop
+
+	use aws
+	use 7zip
+	use cloc
+	# use wget
+	# use zip
 
 	scoop install aws
 	scoop install 7zip
 	scoop install cloc
-	scoop install gh
 	scoop install shellcheck
 	scoop install wget
 	scoop install yt-dlp
 	scoop install zip
-}
-
-def user_link {
-	set -o errexit
-	set -o xtrace
-
-	ln --force ~/desktop/user/profile/belimoth/home/.bash_profile ~/.bash_profile
-	ln --force ~/desktop/user/profile/belimoth/home/.bashrc       ~/.bashrc
-	ln --force ~/desktop/user/profile/belimoth/home/.inputrc      ~/.inputrc
-	ln --force ~/desktop/user/profile/belimoth/home/.gitconfig    ~/.gitconfig
-
-	ln --force ~/desktop/user/profile/belimoth/vscode/keybindings.json ~/appdata/roaming/code/user/keybindings.json
-	ln --force ~/desktop/user/profile/belimoth/vscode/settings.json    ~/appdata/roaming/code/user/settings.json
 }
 
 alias ls="ls -1"
@@ -55,24 +44,13 @@ alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 # use aws
 # use 7zip
 # use cloc
-# use wget
-# use zip
-
-# todo
-
-# use aws_cli
-# use git
-# use git_extra
-# use python
-# use python_extra
-# use vs_code
 
 def user_status {
 	# todo
 
 	echo user status aws ; aws  --version; echo
 	echo user status bash; bash --version; echo
-	echo user status git ; git  --version; echo
+	echo user status git ; git  --version; echo1
 
 	echo user status python; python --version; echo
 	echo user status python; pip freeze; echo
@@ -85,6 +63,18 @@ def user_update {
 	python -m pip install --upgrade pip
 	scoop update
 	scoop update "*"
+}
+
+def user_check_script {
+	use shellcheck
+	cd ~/desktop/user
+	shopt -s globstar
+	shellcheck --shell=bash --exclude=SC1090,SC2046,SC2086, -- *
+}
+
+def user_edit_script {
+	[[ -x $( command -v $1 ) ]] || { echo "error"; exit 1;}
+	code $( which $1 )
 }
 
 def key_list_all {
