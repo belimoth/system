@@ -2,17 +2,11 @@
 
 set -o errexit
 
-alias md=mkdir
-
-[[ -d ~/desktop ]] || md ~/desktop
-
-cd ~/desktop
-
-[[ -d ~/desktop/user ]] || md ~/desktop/user
-
-[[ -d ~/desktop/user/.git ]] || git clone git@github.com:subhelion/user.git
+alias md="mkdir --parents
 
 [[ -d ~/desktop/code ]] || md ~/desktop/code
 [[ -d ~/desktop/data ]] || md ~/desktop/data
 [[ -d ~/desktop/file ]] || md ~/desktop/file
 [[ -d ~/desktop/null ]] || md ~/desktop/null
+
+[[ -d ~/desktop/user/.git ]] || git clone git@github.com:subhelion/user.git ~/desktop/user
