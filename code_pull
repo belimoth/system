@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # usage:
-# code-clone <slug> && code-edit $_
+# code_clone <slug> && code_edit $_
 
 set -o errexit
 

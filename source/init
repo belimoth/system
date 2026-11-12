@@ -11,12 +11,9 @@ def use_os {
 	[[ $( uname --operating-system ) == "Msys" ]] || { echo "error: unsupported os"; return 1; }
 }
 
-def use_bash {
-	export PS1="\w> "
-}
-
 def use_git {
-	PATH=$PATH:~/desktop/user/git
+	source ~/desktop/user/source/git
+	# PATH=$PATH:~/desktop/user/git
 	export PAGER=
 }
 

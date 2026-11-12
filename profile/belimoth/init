@@ -76,7 +76,6 @@ def user_link {
 alias ls="ls -1"
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
-use bash
 use git
 use hub
 use windows
@@ -150,7 +149,7 @@ def edit {
 		exit
 	}
 
-	code-edit $@
+	code_edit $@
 }
 
 def pull {
