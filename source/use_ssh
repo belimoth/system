@@ -1,0 +1,29 @@
+#!/bin/bash
+
+def use_ssh {
+    set -o allexport
+
+    def agent_start {
+        status=$( ssh-add -l > /dev/null 2>&1; echo $? )
+        [[ $status == 2 ]] && eval $( ssh-agent )
+
+        status=$( ssh-add -l > /dev/null 2>&1; echo $? )
+        [[ $status == 1 ]] && ssh-add
+    }
+
+    def agent_list {
+        ssh-add -l
+    }
+
+    def agent_clear {
+        ssh-add -D
+    }
+
+    def agent_kill {
+        eval $( ssh-agent -k )
+    }
+
+    def ssh_test {
+        echo ok
+    }
+}

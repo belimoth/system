@@ -1,0 +1,5 @@
+#!/bin/bash
+
+def use_vcpkg {
+	pass
+}

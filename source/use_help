@@ -1,0 +1,34 @@
+#!/bin/bash
+
+def help_bash {
+	bash --help
+}
+
+def help_bash_shell {
+	bash -c "help set"
+}
+
+def help_bash_builtins {
+	bash -c "help"
+}
+
+def help_git {
+	git help
+}
+
+def help_git_commands {
+	git help --all
+}
+
+def help_git_concepts {
+	git help --guides
+}
+
+def help_user {
+	echo "code_drop <slug>"
+	echo "code_edit <slug>"
+	echo "code_list"
+	echo "code_list_all"
+	echo "code_pull <slug>"
+	echo "code_push <slug>"
+}

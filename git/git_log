@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -o errexit
-
-git log --pretty=format:"%h %ad %<(8,trunc)%an %s" --date=short "$@"
-
-echo ""

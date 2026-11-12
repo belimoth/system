@@ -1,0 +1,5 @@
+#!/bin/bash
+
+def get_python {
+	winget install --exact --id python.python.3.14
+}

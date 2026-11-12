@@ -1,0 +1,28 @@
+#!/bin/bash
+
+[[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
+
+alias scoop="env --unset GITHUB_TOKEN scoop"
+
+scoop --version || {
+	echo "error: missing scoop"
+	exit 1
+}
+
+def use_scoop_package {
+	set -o allexport
+	eval "def use_$1 { has $1 || scoop install $1; }"
+}
+
+# use aws
+# scoop install 7zip
+# scoop install cloc
+# scoop install gh
+# scoop install shellcheck
+# scoop install wget
+# scoop install yt-dlp
+# scoop install zip
+
+def get_aws {
+	scoop install aws
+}

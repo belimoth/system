@@ -9,8 +9,9 @@ shopt -s histappend
 
 PROMPT_COMMAND="history -a"
 
-TIMEFORMAT="%Rs"
-time source ~/desktop/user/profile/belimoth/init
+# TIMEFORMAT="%Rs"
+# time source ~/desktop/user/profile/belimoth/init
+source ~/desktop/user/profile/belimoth/init
 
 SHLVL=1
 

@@ -1,0 +1,4 @@
+def use_msvc {
+	# winget install --id Microsoft.VisualStudio.BuildTools
+	pass
+}

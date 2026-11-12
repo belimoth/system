@@ -1,0 +1,3 @@
+#!/bin/bash
+
+has aws || get_aws

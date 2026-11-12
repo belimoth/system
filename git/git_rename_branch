@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# usage:
-# git-rename-branch <old> <new>
-
-git checkout $1
-git branch --move $2
-git push --delete origin $1
-git push --set-upstream origin $2

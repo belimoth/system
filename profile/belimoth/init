@@ -1,45 +1,17 @@
+set -o allexport
+
 MSYS=winsymlinks:nativestrict
 
 alias def=function
-
-def fast_init_load {
-	[[ -f ~/desktop/null/user/init ]] || return 1
-	set -o allexport
-	source ~/desktop/null/user/init
-	set +o allexport
-	echo fast
-	return 0
-}
-
-fast_init_load && return 0
 
 USER=belimoth
 GITHUB_USER=belimoth
 GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 
-echo slow
-
 PATH=$PATH:~/desktop/user
 PATH=$PATH:~/desktop/user/profile/$USER
 
 source ~/desktop/user/source/init
-
-def fast_init_save {
-	# unset "ProgramFiles(x86)"
-	# unset "CommonProgramFiles(x86)"
-	md --parents ~/desktop/null/user
-	[[ -f ~/desktop/null/user/init ]] && rm ~/desktop/null/user/init
-	touch ~/desktop/null/user/init
-	shopt -op >> ~/desktop/null/user/init
-	# env >> ~/desktop/null/user/init
-	export -p | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
-	# declare -p | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
-	declare -f | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
-}
-
-def fast_init_thaw {
-	rm ~/desktop/null/user/init
-}
 
 def user_init {
 	source ~/desktop/user/source/init
@@ -76,9 +48,9 @@ def user_link {
 alias ls="ls -1"
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
-use git
-use hub
-use windows
+# use git
+# use hub
+# use windows
 
 # use aws
 # use 7zip

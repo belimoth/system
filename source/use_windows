@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -o allexport
+
+def windows_env {
+	rundll32.exe sysdm.cpl,EditEnvironmentVariables
+}
+
+def windows_credential_manager {
+	control -name Microsoft.CredentialManager
+}
+
+def windows_info (
+	set +o errexit
+	set -o xtrace
+
+	npm list
+	pip list
+	scoop list
+	winget list
+)

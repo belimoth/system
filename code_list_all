@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -o errexit
-
-name="${1:-$GITHUB_USER}"
-
-code_list $name
-
-# todo

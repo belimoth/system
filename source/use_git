@@ -1,0 +1,97 @@
+#!/bin/bash
+
+set -o allexport
+
+PAGER=
+
+def git_amend {
+	set -o errexit
+	set -o xtrace
+	git commit --amend --no-edit --allow-empty-message
+}
+
+def git_archive_branch {
+	# git_archive_branch <branch>
+	tag=archive/$( date --iso-8601 )/$1
+	git tag $tag origin/$1
+	git push origin $tag
+	git push --delete origin $1
+}
+
+def git_check {
+	# test for unstaged changes
+
+	git diff-files --quiet -- || {
+		echo "error: unstaged changes"
+		exit 1
+	}
+
+	# test for uncommitted changes
+
+	git diff-index --cached --quiet HEAD -- || {
+		echo "error: uncommitted changes"
+		exit 1
+	}
+}
+
+def git_check_ignored {
+	git ls-files --ignored --exclude-from=.gitignore
+}
+
+def git_commit_empty {
+	git commit --message "" --allow-empty-message
+}
+
+def git_log {
+	git log --pretty=format:"%h %ad %<(8,trunc)%an %s" --date=short "$@"; echo
+}
+
+def git_log_branches {
+	git log --graph --pretty=format:"%h %ad %<(8,trunc)%an %D" --date=short --decorate=short "$@"; echo
+}
+
+def git_log_graph {
+	git log --graph --pretty=format:"%h %ad %<(8,trunc)%an %s" --date=short "$@"; echo
+}
+
+def git_rename_branch {
+	# git-rename-branch <old> <new>
+	git checkout $1
+	git branch --move $2
+	git push --delete origin $1
+	git push --set-upstream origin $2
+}
+
+def git_sync {
+	set -o errexit
+	set -o xtrace
+
+	git fetch
+	git_check
+	git merge --ff-only
+	git push
+}
+
+def git_sync_branch {
+	set -o errexit
+
+	branch=$( git rev-parse --abbrev-ref HEAD )
+	base=$( basename $( git rev-parse --abbrev-ref origin/HEAD ) )
+
+	set -o xtrace
+
+	git switch $base
+	git pull --ff-only
+	git switch $branch
+	git merge --no-ff $base
+}
+
+def git_sync_rebase {
+	set -o errexit
+	set -o xtrace
+
+	git fetch
+	git_check
+	git rebase || git rebase --abort
+	git push
+}
