@@ -6,25 +6,18 @@ alias set="local -; set"
 alias def=function
 alias md=mkdir
 alias pass=":"
-alias void="/dev/null 2>&1"
 
 def use_os {
 	[[ $( uname --operating-system ) == "Msys" ]] || { echo "error: unsupported os"; return 1; }
 }
 
 def has {
-	[[ -z $1 ]] || return 1
-	[[ -x $( command -v $1 ) ]] || return 1
+	command -v $1 &> /dev/null || return 1
 }
 
 def use {
-	[[ $( type -t use_$1 ) == function  ]] && {               use_$1; eval "def use_$1 { pass; }"; return 0; }
-	[[ -x $( command -v source/use_$1 ) ]] && { source source/use_$1; eval "def use_$1 { pass; }"; return 0; }
+	[[ $( type -t use_$1 ) == function ]] && { use_$1; eval "def use_$1 { pass; }"; return 0; }
+	[[ -f source/use_$1 ]] && {  source source/use_$1; eval "def use_$1 { pass; }"; return 0; }
 	echo error
 	return 1
-}
-
-def view {
-	# todo list possible commands without params, or show a command in its location
-	pass
 }

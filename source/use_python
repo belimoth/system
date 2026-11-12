@@ -1,6 +1,7 @@
 #!/bin/bash
 
 has python || get_python
+
 [[ $( command -v python ) == *"WindowsApps"* ]] && { echo "error: app execution alias detected"; return 1; }
 [[ $( python -c "import sys; print( sys.version_info[0] )" ) == "3" ]] || { echo "error: python 3 not installed"; return 1; }
 

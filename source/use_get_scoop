@@ -1,10 +1,14 @@
 #!/bin/bash
 
-[[ -x scoop ]] || powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
+get_scoop() {
+	powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
+}
+
+has scoop || get_scoop
 
 alias scoop="env --unset GITHUB_TOKEN scoop"
 
-scoop --version || {
+scoop --version &> /dev/null || {
 	echo "error: missing scoop"
 	exit 1
 }
@@ -14,11 +18,16 @@ def use_scoop_package {
 	eval "def use_$1 { has $1 || scoop install $1; }"
 }
 
-def get_7zip       { scoop install 7zip; }
-def get_aws        { scoop install aws; }
-def get_cloc       { scoop install cloc; }
-def get_gh         { scoop install gh; }
-def get_shellcheck { scoop install shellcheck; }
-def get_wget       { scoop install wget; }
-def get_ytdlp      { scoop install yt-dlp; }
-def get_zip        { scoop install zip; }
+def reg {
+	eval "def get_$1 { scoop install ${2:-$1}; }"
+	eval "def use_$1 { has $1 || get_$1; }"
+}
+
+reg 7zip
+reg aws
+reg cloc
+reg gh
+reg shellcheck
+reg wget
+reg ytdlp yt-dlp
+reg zip

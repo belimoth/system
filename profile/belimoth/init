@@ -16,34 +16,24 @@ def user_init {
 }
 
 def user_install {
-    use os
-    use get_scoop
+	use os
 
-	use aws
+	use get_scoop
+	use get_winget
+
 	use 7zip
+	use aws
 	use cloc
-	# use wget
-	# use zip
-
-	scoop install aws
-	scoop install 7zip
-	scoop install cloc
-	scoop install shellcheck
-	scoop install wget
-	scoop install yt-dlp
-	scoop install zip
+	use git
+	use hub
+	use shellcheck
+	use wget
+	use windows
+	use ytdlp
 }
 
 alias ls="ls -1"
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
-
-# use git
-# use hub
-# use windows
-
-# use aws
-# use 7zip
-# use cloc
 
 def user_status {
 	# todo
@@ -149,4 +139,9 @@ def save {
 
 def sync {
     git_sync
+}
+
+def view {
+	# todo list possible commands without params, or show a command in its location
+	pass
 }

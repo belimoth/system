@@ -1,5 +1,14 @@
 #!/bin/bash
 
+def get_slug {
+	slug=$1
+	user=$( echo $slug | cut -d'/' -f1 )
+	repo=$( echo $slug | cut -d'/' -f2 )
+	[[ $slug == */* ]] || user=$GITHUB_USER
+	slug="$user/$repo"
+	echo "slug: $slug"
+}
+
 def code_drop {
 	# code_drop <slug>
 
