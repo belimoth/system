@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -o xtrace
-
-git fetch
-git_check
-git merge --ff-only
-git push

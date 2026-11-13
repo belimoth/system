@@ -60,6 +60,15 @@ function git_rename_branch {
 	git push --set-upstream origin $2
 }
 
+function git_sync {
+	set -o xtrace
+
+	git fetch
+	git_check
+	git merge --ff-only
+	git push
+}
+
 function git_sync_branch {
 	branch=$( git rev-parse --abbrev-ref HEAD )
 	base=$( basename $( git rev-parse --abbrev-ref origin/HEAD ) )
