@@ -34,7 +34,7 @@ function git_check_ignored {
 }
 
 function git_commit_empty {
-	git commit --message "" --allow-empty-message
+	git commit --short --message "" --allow-empty-message
 }
 
 function git_log {
