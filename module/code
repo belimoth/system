@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o allexport
+
 function get_slug {
 	slug=$1
 	user=$( echo $slug | cut -d'/' -f1 )
@@ -12,7 +14,7 @@ function get_slug {
 function code_drop {
 	# code_drop <slug>
 
-	set -o errexit
+	local -; set -o errexit
 
 	[[ -z $1 ]] && err
 
@@ -61,7 +63,7 @@ function code_drop {
 function code_edit {
 	# code_edit <slug>
 
-	set -o errexit
+	local -; set -o errexit
 
 	[[ -z $1 ]] && err
 
@@ -79,7 +81,7 @@ function code_edit {
 }
 
 function code_list {
-	set -o errexit
+	local -; set -o errexit
 
 	name="${1:-$GITHUB_USER}"
 
@@ -99,7 +101,7 @@ function code_list {
 }
 
 function code_list_all {
-	set -o errexit
+	local -; set -o errexit
 	name="${1:-$GITHUB_USER}"
 	code_list $name
 	# todo
@@ -107,7 +109,7 @@ function code_list_all {
 
 function code_pull {
 	# code_pull <slug> && code_edit $_
-	set -o errexit
+	local -; set -o errexit
 
 	[[ -z $1 ]] && err
 
@@ -129,7 +131,7 @@ function code_pull {
 }
 
 function code_push_new {
-	set -o errexit
+	local -; set -o errexit
 
 	[[ -z $1 ]] && err
 

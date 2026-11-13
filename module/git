@@ -5,22 +5,23 @@ set -o allexport
 PAGER=
 
 function git_amend {
-	set -o errexit
 	set -o xtrace
+
 	git commit --amend --no-edit --allow-empty-message
 }
 
 function git_archive_branch {
 	# git_archive_branch <branch>
 	tag=archive/$( date --iso-8601 )/$1
+
+	set -o xtrace
+
 	git tag $tag origin/$1
 	git push origin $tag
 	git push --delete origin $1
 }
 
 function git_check {
-	set -o errexit
-
 	# test for unstaged changes
 	git diff-files --quiet -- || err "error: unstaged changes"
 
@@ -50,25 +51,16 @@ function git_log_graph {
 
 function git_rename_branch {
 	# git-rename-branch <old> <new>
+
+	set -o xtrace
+
 	git checkout $1
 	git branch --move $2
 	git push --delete origin $1
 	git push --set-upstream origin $2
 }
 
-function git_sync {
-	set -o errexit
-	set -o xtrace
-
-	git fetch
-	git_check
-	git merge --ff-only
-	git push
-}
-
 function git_sync_branch {
-	set -o errexit
-
 	branch=$( git rev-parse --abbrev-ref HEAD )
 	base=$( basename $( git rev-parse --abbrev-ref origin/HEAD ) )
 
@@ -81,7 +73,6 @@ function git_sync_branch {
 }
 
 function git_sync_rebase {
-	set -o errexit
 	set -o xtrace
 
 	git fetch

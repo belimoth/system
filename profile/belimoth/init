@@ -6,13 +6,10 @@ MSYS=winsymlinks:nativestrict
 
 USER=belimoth
 GITHUB_USER=belimoth
-GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
+# GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 
-PATH=$PATH:~/desktop/user
-PATH=$PATH:~/desktop/user/profile/$USER
-
-source init
+source ~/desktop/user/init
 
 alias ls="ls -1"
 
-PWD=$( pwd | sed 's|C:/Users/zach|~|' )
+PWD=$( pwd | sed "s|C:/Users/zach|~|" )

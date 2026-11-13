@@ -5,7 +5,9 @@ function reg {
 	eval "function use_$1 { has $1 || get_$1; }"
 }
 
+# NOTE don't actually reg git it messes up the module
+# reg git    git.git
+
 reg ahk    autohotkey.autohotkey
-reg git    git.git
 reg python python.python.3.14
 reg vscode microsoft.vscode
