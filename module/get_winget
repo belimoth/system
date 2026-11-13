@@ -1,0 +1,6 @@
+#!/bin/bash
+
+function get_ahk    { winget install --source winget --id autohotkey.autohotkey; }
+function get_git    { winget install --source winget --id git.git; }
+function get_python { winget install --source winget --id python.python.3.14; }
+function get_vscode { winget install --source winget --id microsoft.vscode; }

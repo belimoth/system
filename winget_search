@@ -1,0 +1,36 @@
+#/bin/bash
+
+winget search --query "" > ~/desktop/null/winget_index
+
+function yank {
+	grep --perl-regexp "$2" ~/desktop/null/winget_index                > ~/desktop/null/winget_index_$1
+	grep --perl-regexp "$2" ~/desktop/null/winget_index --invert-match > ~/desktop/null/winget_index_temp
+	mv ~/desktop/null/winget_index_temp ~/desktop/null/winget_index
+}
+
+yank cjk "[\p{Han}\p{Hiragana}\p{Katakana}\p{Hangul}]"
+yank rus "[\p{Cyrillic}]"
+
+yank 360     "360"
+yank adobe   "Adobe"
+yank agent   "Agent"
+yank ai      " AI"
+yank arduino "ArduinoSA"
+yank aws     "AWS"
+yank eclipse "Eclipse"
+yank epic    "EpicGames"
+yank jdk     "JDK"
+yank jre     "JRE"
+yank js      "OpenJS"
+yank net     "\.NET"
+yank nir     "NirSoft"
+yank nvidia  "NVIDIA"
+yank office  "Office"
+yank oracle  "Oracle"
+yank pdf     "PDF"
+yank php     "PHP"
+yank riot    "RiotGames"
+yank samsung "Samsung"
+yank seo     "SEO"
+yank usb     "USB"
+yank vnc     "VNC"

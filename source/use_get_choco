@@ -1,3 +1,0 @@
-#!/bin/bash
-
-def get_vscode { choco install vscode; }

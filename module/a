@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# use os
+# use os_windows
+
+set -o allexport
+
+MSYS_NO_PATHCONV=1 subst /d a: | true && subst a: .
+
+history -c
+HISTFILE=/a/null/.bash_history
+
+PATH=$PATH:/a/user
+
+[[ -z $USER ]] && [[ -f /a/user/profile/$USER      ]] && source /a/user/profile/$USER
+[[ -z $USER ]] && [[ -d /a/user/profile/$USER      ]] && export PATH=$PATH:/a/user/profile/$USER
+[[ -z $USER ]] && [[ -f /a/user/profile/$USER/init ]] && source /a/user/profile/$USER/init
+
+return 0

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-def use_msvc {
+function use_msvc {
 	# winget install --id Microsoft.VisualStudio.BuildTools
 	pass
 }

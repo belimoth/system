@@ -11,36 +11,37 @@ PATH=$PATH:~/desktop/user/profile/$USER
 
 source init
 
-def user_init {
+function user_init {
 	source ~/desktop/user/profile/$USER/init
 }
 
-def user_install {
+function user_install {
 	use os
+	use os_windows
 
 	use get_scoop
 	use get_winget
 
 	use 7zip
+	use ahk
 	use aws
 	use cloc
 	use git
 	use hub
 	use shellcheck
 	use wget
-	use windows
 	use ytdlp
 }
 
 alias ls="ls -1"
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
-def user_status {
+function user_status {
 	# todo
 
 	echo user status aws ; aws  --version; echo
 	echo user status bash; bash --version; echo
-	echo user status git ; git  --version; echo1
+	echo user status git ; git  --version; echo
 
 	echo user status python; python --version; echo
 	echo user status python; pip freeze; echo
@@ -48,67 +49,69 @@ def user_status {
 	echo user status scoop ; scoop status; echo
 }
 
-def user_update {
+function user_update {
 	butler upgrade --assume-yes
 	python -m pip install --upgrade pip
 	scoop update
 	scoop update "*"
 }
 
-def user_check_script {
+function user_check_script {
 	use shellcheck
 	cd ~/desktop/user
 	shopt -s globstar
 	shellcheck --shell=bash --exclude=SC1090,SC2046,SC2086, -- *
 }
 
-def user_edit_script {
-	[[ -x $( command -v $1 ) ]] || { echo "error"; exit 1;}
+function user_edit_script {
+	[[ -x $( command -v $1 ) ]] || err
 	code $( which $1 )
 }
 
-def key_list_all {
+function key_list_all {
 	cmdkey -list
 }
 
-def key_manage {
+function key_manage {
 	rundll32.exe keymgr.dll,KRShowKeyMgr
 }
 
-def key_pull {
+function key_pull {
 	use os
 	use python
 	use_python_package keyring
 }
 
-def key_push {
+function key_push {
 	echo
 }
 
 use code
 use data
 
-def edit {
+function edit {
 	[[ -z $1 ]] && {
+		code
+	}
+
+	[[ $1 == "code"  ]] && {
 		cd ~/desktop/code/$USER
 		code . --reuse-window
-		exit
 	}
 
 	[[ $1 == "user" ]] && {
 		cd ~/desktop/user
 		code . --reuse-window
-		exit
 	}
 
 	code_edit $@
 }
 
-def pull {
+function pull {
 	code_pull $@
 }
 
-# def pull {
+# function pull {
 # 	slug=$1
 # 	name=$( echo $slug | cut -d'/' -f1 )
 # 	repo=$( echo $slug | cut -d'/' -f2 )
@@ -128,20 +131,22 @@ def pull {
 # 	}
 # }
 
-def push {
+function push {
 	echo
 }
 
-def save {
+function save {
 	use git
 	git_commit_empty
 }
 
-def sync {
+function sync {
     git_sync
 }
 
-def view {
+function view {
 	# todo list possible commands without params, or show a command in its location
 	pass
 }
+
+PWD=$( pwd | sed 's|C:/Users/zach|~|' )

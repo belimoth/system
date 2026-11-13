@@ -1,5 +1,5 @@
 #!/bin/bash
 
-def use_itch {
+function use_itch {
 	echo https://broth.itch.zone/butler/{platform}/{version}/archive/default
 }

@@ -13,17 +13,17 @@
 	gh config set telemetry disabled
 }
 
-def hub_new {
+function hub_new {
 	use os
 	use python
-	use python_package requests
+	# use python_package requests
 	return 1
 
-	[[ -z $GITHUB_USER ]] && { echo "error: missing GITHUB_USER environment variable"; exit 1; }
+	[[ -z $GITHUB_USER ]] && err "error: missing GITHUB_USER environment variable"
 
 	token_path=~/desktop/null/key/token-gh
 
-	[[ -f $token_path ]] || { echo "error: missing token file"; exit 1; }
+	[[ -f $token_path ]] || err "error: missing token file"
 
 	# shellcheck disable=SC2155
 	export GITHUB_TOKEN=$( cat $token_path )
@@ -31,6 +31,6 @@ def hub_new {
 	python ~/desktop/user/source/forge_create_repo_gh.py $1
 }
 
-def hub_url {
+function hub_url {
 	echo git@github.com:${1}.git
 }

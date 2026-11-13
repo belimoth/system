@@ -1,6 +1,6 @@
 #!/bin/bash
 
-def get_slug {
+function get_slug {
 	slug=$1
 	user=$( echo $slug | cut -d'/' -f1 )
 	repo=$( echo $slug | cut -d'/' -f2 )
@@ -9,12 +9,12 @@ def get_slug {
 	echo "slug: $slug"
 }
 
-def code_drop {
+function code_drop {
 	# code_drop <slug>
 
 	set -o errexit
 
-	[[ -z $1 ]] && { echo error; exit 1; }
+	[[ -z $1 ]] && err
 
 	slug=$1
 	user=$( echo $slug | cut -d'/' -f1 )
@@ -25,16 +25,16 @@ def code_drop {
 
 	cd ~/desktop/code
 
-	[[ -d "$slug" ]] || { echo "error: folder '$slug' doesn't exit"; exit 1; }
+	[[ -d "$slug" ]] || err "error: folder '$slug' doesn't exist"
 
 	cd $slug
 
-	[[ -d ".git" ]] || { echo "error: folder $1 is not a git repo"; exit 1; }
+	[[ -d ".git" ]] || err "error: folder $1 is not a git repo"
 
 	echo "origin: $( git config --get remote.origin.url )"
 	# [[ $( git config --get remote.origin.url ) == https://github.com/$user/* ]] || \
 	# [[ $( git config --get remote.origin.url ) == git@github.com:$user/*     ]] || \
-	# { echo "error: missing or incorrect origin"; exit 1; }
+	# err "missing or incorrect origin"
 
 	# TODO check all branches for unpushed changes
 
@@ -58,11 +58,11 @@ def code_drop {
 	}
 }
 
-def code_edit {
+function code_edit {
 	# code_edit <slug>
 	set -o errexit
 
-	[[ -z $1 ]] && { echo error; exit 1; }
+	[[ -z $1 ]] && err
 
 	slug=$1
 	org=$(  echo $slug | cut -d'/' -f1 )
@@ -70,24 +70,22 @@ def code_edit {
 	[[ $slug == */* ]] || org=$GITHUB_USER
 	slug=$org/$repo
 
-	[[ -d ~/desktop/code/$slug ]] || { echo error; exit 1; }
+	[[ -d ~/desktop/code/$slug ]] || err $slug
 
 	cd ~/desktop/code/$slug
-
-	[[ -f ./shell/init ]] || code . --reuse-window && ./shell/init
-
-	exit
+	[[ -f ./user/init ]] && ./user/init
+	code . --reuse-window
 }
 
-def code_list {
+function code_list {
 	set -o errexit
 
 	name="${1:-$GITHUB_USER}"
 
-	[[ -d ~/desktop/code/$name ]] || { echo error; exit 1; }
+	[[ -d ~/desktop/code/$name ]] || err
 
 	[[ $* == *--all* ]] && {
-		echo
+		pass
 	}
 
 	# ls -1 --almost-all ~/desktop/code/$name
@@ -99,18 +97,18 @@ def code_list {
 	find . -mindepth 2 -maxdepth 2 -type d | sed "s|\./||g"
 }
 
-def code_list_all {
+function code_list_all {
 	set -o errexit
 	name="${1:-$GITHUB_USER}"
 	code_list $name
 	# todo
 }
 
-def code_pull {
+function code_pull {
 	# code_pull <slug> && code_edit $_
 	set -o errexit
 
-	[[ -z $1 ]] && { echo error; exit 1; }
+	[[ -z $1 ]] && err
 
 	slug=$1
 	name=$( echo $slug | cut -d'/' -f1 )
@@ -129,10 +127,10 @@ def code_pull {
 	# [[ -f ./user/profile/$USER/pull ]] && bash ./user/profile # todo check functions for remote instead
 }
 
-def code_push_new {
+function code_push_new {
 	set -o errexit
 
-	[[ -z $1 ]] && { echo error; exit 1; }
+	[[ -z $1 ]] && err
 
 	slug=$1
 	name=$( echo $slug | cut -d'/' -f1 )
@@ -142,7 +140,7 @@ def code_push_new {
 
 	#
 
-	[[ -d ~/desktop/code/$slug ]] && { echo error; exit 1; }
+	[[ -d ~/desktop/code/$slug ]] && err
 
 	mkdir --parents ~/desktop/code/$slug && cd $_
 

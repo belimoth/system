@@ -1,4 +1,6 @@
-def fast_init_load {
+#!/bin/bash
+
+function fast_init_load {
 	[[ -f ~/desktop/null/user/init ]] || return 1
 	set -o allexport
 	source ~/desktop/null/user/init
@@ -9,7 +11,7 @@ def fast_init_load {
 
 fast_init_load && return 0
 
-def fast_init_save {
+function fast_init_save {
 	md --parents ~/desktop/null/user
 	[[ -f ~/desktop/null/user/init ]] && rm ~/desktop/null/user/init
 	touch ~/desktop/null/user/init
@@ -20,6 +22,6 @@ def fast_init_save {
 	declare -f | grep -Ev '^(declare -xr|export) (BASH|_=|PWD|OLDPWD|SHELLOPTS|SHLVL|UID|PPID)' >> ~/desktop/null/user/init
 }
 
-def fast_init_thaw {
+function fast_init_thaw {
 	rm ~/desktop/null/user/init
 }

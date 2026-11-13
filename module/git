@@ -4,13 +4,13 @@ set -o allexport
 
 PAGER=
 
-def git_amend {
+function git_amend {
 	set -o errexit
 	set -o xtrace
 	git commit --amend --no-edit --allow-empty-message
 }
 
-def git_archive_branch {
+function git_archive_branch {
 	# git_archive_branch <branch>
 	tag=archive/$( date --iso-8601 )/$1
 	git tag $tag origin/$1
@@ -18,43 +18,37 @@ def git_archive_branch {
 	git push --delete origin $1
 }
 
-def git_check {
-	# test for unstaged changes
+function git_check {
+	set -o errexit
 
-	git diff-files --quiet -- || {
-		echo "error: unstaged changes"
-		exit 1
-	}
+	# test for unstaged changes
+	git diff-files --quiet -- || err "error: unstaged changes"
 
 	# test for uncommitted changes
-
-	git diff-index --cached --quiet HEAD -- || {
-		echo "error: uncommitted changes"
-		exit 1
-	}
+	git diff-index --cached --quiet HEAD -- || err "error: uncommitted changes"
 }
 
-def git_check_ignored {
+function git_check_ignored {
 	git ls-files --ignored --exclude-from=.gitignore
 }
 
-def git_commit_empty {
+function git_commit_empty {
 	git commit --message "" --allow-empty-message
 }
 
-def git_log {
+function git_log {
 	git log --pretty=format:"%h %ad %<(8,trunc)%an %s" --date=short "$@"; echo
 }
 
-def git_log_branches {
+function git_log_branches {
 	git log --graph --pretty=format:"%h %ad %<(8,trunc)%an %D" --date=short --decorate=short "$@"; echo
 }
 
-def git_log_graph {
+function git_log_graph {
 	git log --graph --pretty=format:"%h %ad %<(8,trunc)%an %s" --date=short "$@"; echo
 }
 
-def git_rename_branch {
+function git_rename_branch {
 	# git-rename-branch <old> <new>
 	git checkout $1
 	git branch --move $2
@@ -62,7 +56,7 @@ def git_rename_branch {
 	git push --set-upstream origin $2
 }
 
-def git_sync {
+function git_sync {
 	set -o errexit
 	set -o xtrace
 
@@ -72,7 +66,7 @@ def git_sync {
 	git push
 }
 
-def git_sync_branch {
+function git_sync_branch {
 	set -o errexit
 
 	branch=$( git rev-parse --abbrev-ref HEAD )
@@ -86,7 +80,7 @@ def git_sync_branch {
 	git merge --no-ff $base
 }
 
-def git_sync_rebase {
+function git_sync_rebase {
 	set -o errexit
 	set -o xtrace
 

@@ -1,0 +1,62 @@
++ [[ -z cafe.subhelion.com ]]
++ [[ cafe.subhelion.com == code ]]
++ [[ cafe.subhelion.com == user ]]
++ code_edit cafe.subhelion.com
++ local -
++ set -o errexit
++ [[ -z cafe.subhelion.com ]]
++ slug=cafe.subhelion.com
+++ echo cafe.subhelion.com
+++ cut -d/ -f1
++ org=cafe.subhelion.com
+++ echo cafe.subhelion.com
+++ cut -d/ -f2
++ repo=cafe.subhelion.com
++ [[ cafe.subhelion.com == */* ]]
++ org=belimoth
++ slug=belimoth/cafe.subhelion.com
++ [[ -d /c/Users/zach/desktop/code/belimoth/cafe.subhelion.com ]]
++ cd /c/Users/zach/desktop/code/belimoth/cafe.subhelion.com
++ [[ -f ./user/init ]]
++ ./user/init
++ use a
+++ type -t use_a
++ [[ '' == function ]]
++ [[ -f /c/Users/zach/desktop/user/module/a ]]
++ source /c/Users/zach/desktop/user/module/a
+++ set -o allexport
+++ MSYS_NO_PATHCONV=1
+++ subst /d a:
+++ true
+++ subst a: .
+++ history -c
+++ HISTFILE=/a/null/.bash_history
+++ PATH='/ucrt64/bin:/usr/bin:/c/Users/zach/bin:/c/VulkanSDK/1.3.268.0/Bin:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/ProgramData/chocolatey/bin:/c/Program Files/Calibre2:/c/Program Files/CMake/bin:/c/Users/zach/AppData/Local/Programs/Python/Launcher:/c/Users/zach/scoop/apps/imagemagick/current:/c/Users/zach/.minc:/c/Users/zach/AppData/Local/Programs/Python/Python314/Scripts:/c/Users/zach/AppData/Local/Programs/Python/Python314:/usr/bin:/cmd:/c/Program Files/LLVM/bin:/c/Users/Zach/AppData/Local/GitHubDesktop/bin:/c/Users/Zach/AppData/Local/Microsoft/WindowsApps:/c/Users/Zach/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/Zach/Desktop/tool/bin:/c/Users/Zach/scoop/shims:/c/Users/zach/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/zach/AppData/Local/PowerToys/DSCModules:/c/Users/zach/desktop/user:/c/Users/zach/desktop/user/profile/belimoth:/c/Users/zach/desktop/user:/c/Users/zach/desktop/user/profile/belimoth:/a/user'
+++ [[ -z belimoth ]]
+++ [[ -z belimoth ]]
+++ [[ -z belimoth ]]
+++ return 0
++ stub a
++ :
++ return 0
++ use python
+++ type -t use_python
++ [[ '' == function ]]
++ [[ -f /c/Users/zach/desktop/user/module/python ]]
++ source /c/Users/zach/desktop/user/module/python
+++ set -o allexport
+++ has python
+++ command -v python
++++ command -v python
+++ [[ -x /c/Users/zach/AppData/Local/Programs/Python/Python314/python ]]
++++ command -v python
+++ [[ /c/Users/zach/AppData/Local/Programs/Python/Python314/python == *WindowsApps* ]]
++++ python -c 'import sys; print( sys.version_info[0] )'
+++ [[ 3 == 3 ]]
++++ pwd
+++ [[ /c/Users/zach/desktop/code/belimoth/cafe.subhelion.com == /a ]]
+++ return 0
++ stub python
++ :
++ return 0
++ code /a --reuse-window

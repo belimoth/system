@@ -3,21 +3,22 @@
 set -o allexport
 
 alias set="local -; set"
-alias def=function
 alias md="mkdir --parents"
 alias pass=":"
 
-def use_os {
-	[[ $( uname --operating-system ) == "Msys" ]] || { echo "error: unsupported os"; return 1; }
-}
-
-def has {
-	command -v $1 &> /dev/null || return 1
-}
-
-def use {
-	[[ $( type -t use_$1 ) == function ]] && { use_$1; eval "def use_$1 { pass; }"; return 0; }
-	[[ -f source/use_$1 ]] && {  source source/use_$1; eval "def use_$1 { pass; }"; return 0; }
-	echo error
+function err {
+	echo error: $@
 	return 1
+}
+
+function has {
+	command -v $1 &> /dev/null || err
+}
+
+function use {
+	function stub { eval "function use_$1 { pass; }"; }
+	function stub { pass; }
+	[[ $( type -t use_$1 ) == function ]] && { eval "use_$1"; stub $1; return 0; }
+	[[ -f ~/desktop/user/module/$1 ]] && { source ~/desktop/user/module/$1; stub $1; return 0; }
+	err use $1
 }

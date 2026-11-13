@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -o allexport
+set -o errexit
+
 get_scoop() {
 	powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression"
 }
@@ -8,19 +11,15 @@ has scoop || get_scoop
 
 alias scoop="env --unset GITHUB_TOKEN scoop"
 
-scoop --version &> /dev/null || {
-	echo "error: missing scoop"
-	exit 1
+scoop --version &> /dev/null || err "error: missing scoop"
+
+function use_scoop_package {
+	eval "function use_$1 { has $1 || scoop install $1; }"
 }
 
-def use_scoop_package {
-	set -o allexport
-	eval "def use_$1 { has $1 || scoop install $1; }"
-}
-
-def reg {
-	eval "def get_$1 { scoop install ${2:-$1}; }"
-	eval "def use_$1 { has $1 || get_$1; }"
+function reg {
+	eval "function get_$1 { scoop install ${2:-$1}; }"
+	eval "function use_$1 { has $1 || get_$1; }"
 }
 
 reg 7zip

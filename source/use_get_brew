@@ -1,3 +1,0 @@
-#!/bin/bash
-
-def get_vscode { brew install --cask visual-studio-code }

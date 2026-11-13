@@ -1,0 +1,3 @@
+#!/bin/bash
+
+[[ $( uname --operating-system ) == "Msys" ]] || err "unsupported os"

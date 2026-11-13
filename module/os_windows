@@ -2,15 +2,15 @@
 
 set -o allexport
 
-def windows_env {
+function windows_env {
 	rundll32.exe sysdm.cpl,EditEnvironmentVariables
 }
 
-def windows_credential_manager {
+function windows_credential_manager {
 	control -name Microsoft.CredentialManager
 }
 
-def windows_info (
+function windows_info (
 	set +o errexit
 	set -o xtrace
 
