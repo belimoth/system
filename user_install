@@ -2,9 +2,17 @@
 
 set -o errexit
 
-[[ -d ~/desktop/code ]] || md ~/desktop/code
-[[ -d ~/desktop/data ]] || md ~/desktop/data
-[[ -d ~/desktop/file ]] || md ~/desktop/file
-[[ -d ~/desktop/null ]] || md ~/desktop/null
+alias md="mkdir --parents"
+
+function reg {
+	[[ -d ~/desktop/$1 ]] || md ~/desktop/$1
+}
+
+reg code
+reg data
+reg drop
+reg file
+reg null
+reg vend
 
 [[ -d ~/desktop/user/.git ]] || git clone git@github.com:subhelion/user.git ~/desktop/user

@@ -60,6 +60,7 @@ function code_drop {
 
 function code_edit {
 	# code_edit <slug>
+
 	set -o errexit
 
 	[[ -z $1 ]] && err

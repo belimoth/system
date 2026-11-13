@@ -1,6 +1,11 @@
 #!/bin/bash
 
-function get_ahk    { winget install --source winget --id autohotkey.autohotkey; }
-function get_git    { winget install --source winget --id git.git; }
-function get_python { winget install --source winget --id python.python.3.14; }
-function get_vscode { winget install --source winget --id microsoft.vscode; }
+function reg {
+	eval "function get_$1 { winget install --source winget --id $2; }"
+	eval "function use_$1 { has $1 || get_$1; }"
+}
+
+reg ahk    autohotkey.autohotkey
+reg git    git.git
+reg python python.python.3.14
+reg vscode microsoft.vscode

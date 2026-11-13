@@ -11,11 +11,7 @@ has scoop || get_scoop
 
 alias scoop="env --unset GITHUB_TOKEN scoop"
 
-scoop --version &> /dev/null || err "error: missing scoop"
-
-function use_scoop_package {
-	eval "function use_$1 { has $1 || scoop install $1; }"
-}
+scoop --version &> /dev/null || err "missing scoop"
 
 function reg {
 	eval "function get_$1 { scoop install ${2:-$1}; }"

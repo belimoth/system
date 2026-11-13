@@ -22,3 +22,5 @@ function use {
 	[[ -f ~/desktop/user/module/$1 ]] && { source ~/desktop/user/module/$1; stub $1; return 0; }
 	err use $1
 }
+
+use os

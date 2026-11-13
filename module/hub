@@ -4,9 +4,11 @@ set -o allexport
 
 alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 
-[[ -z $( command -v gh ) ]] && {
+has gh || {
 	use get_scoop
 	scoop install gh
+
+	set +o errexit
 
 	copilot -i uninstall
 	gh copilot --remove
@@ -18,21 +20,7 @@ alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
 }
 
 function hub_new {
-	use os
-	use python
-	# use python_package requests
 	return 1
-
-	[[ -z $GITHUB_USER ]] && err "error: missing GITHUB_USER environment variable"
-
-	token_path=~/desktop/null/key/token-gh
-
-	[[ -f $token_path ]] || err "error: missing token file"
-
-	# shellcheck disable=SC2155
-	export GITHUB_TOKEN=$( cat $token_path )
-
-	python ~/desktop/user/source/forge_create_repo_gh.py $1
 }
 
 function hub_url {
