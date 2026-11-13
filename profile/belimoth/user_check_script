@@ -1,0 +1,6 @@
+#!/bin/bash
+
+use shellcheck
+cd ~/desktop/user
+shopt -s globstar
+shellcheck --shell=bash --exclude=SC1090,SC2046,SC2086, -- *

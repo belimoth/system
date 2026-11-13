@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo user status aws ; aws  --version; echo
+echo user status bash; bash --version; echo
+echo user status git ; git  --version; echo
+
+echo user status python; python --version; echo
+echo user status python; pip freeze; echo
+echo user status scoop ; scoop --version; echo
+echo user status scoop ; scoop status; echo

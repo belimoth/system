@@ -1,5 +1,12 @@
 #!/bin/bash
 
+function get_vcpkg {
+	cd ~/desktop/null
+	git clone https://github.com/microsoft/vcpkg.git
+	cd vcpkg
+	bootstrap-vcpkg.sh -disableMetrics
+}
+
 function use_vcpkg {
-	pass
+	has vcpkg || get_vcpkg
 }

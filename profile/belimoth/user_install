@@ -1,0 +1,17 @@
+#!/bin/bash
+
+use os
+use os_windows
+
+use get_scoop
+use get_winget
+
+use 7zip
+use ahk
+use aws
+use cloc
+use git
+use hub
+use shellcheck
+use wget
+use ytdlp

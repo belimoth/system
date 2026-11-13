@@ -1,0 +1,3 @@
+#!/bin/bash
+
+source ~/desktop/user/profile/$USER/init

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+use os
+use python
+use_python_package keyring

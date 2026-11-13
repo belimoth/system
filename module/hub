@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o allexport
+
+alias gh="GH_TOKEN=$GITHUB_TOKEN gh"
+
 [[ -z $( command -v gh ) ]] && {
 	use get_scoop
 	scoop install gh

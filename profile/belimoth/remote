@@ -2,7 +2,10 @@
 
 set -o errexit
 
+use git
+
 git remote rm                   origin
 git remote add                  origin git@github.com:subhelion/user.git
 git remote set-url --add --push origin git@github.com:subhelion/user.git
 git remote set-url --add --push origin git@github.com:belimoth/user.git
+git branch --set-upstream-to origin/main

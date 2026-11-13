@@ -1,0 +1,4 @@
+#!/bin/bash
+
+[[ -x $( command -v $1 ) ]] || err
+code $( which $1 )
