@@ -2,14 +2,19 @@
 
 set -o allexport
 
+alias ls="ls -1"
+
 MSYS=winsymlinks:nativestrict
 
+PWD=$( pwd | sed "s|C:/Users/zach|~|" )
+
 USER=belimoth
+TEAM=subhelion
 GITHUB_USER=belimoth
 # GITHUB_TOKEN=$( cat ~/desktop/null/key/token-gh )
 
 source ~/desktop/user/init
 
-alias ls="ls -1"
-
-PWD=$( pwd | sed "s|C:/Users/zach|~|" )
+use code
+use data
+use easy

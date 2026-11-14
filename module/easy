@@ -1,0 +1,70 @@
+#!/bin/bash
+
+set -o allexport
+
+function edit {
+	use code
+
+	[[ -z $1 ]] && {
+		code
+	}
+
+	[[ $1 == "code"  ]] && {
+		cd ~/desktop/code/$USER
+		code . --reuse-window
+	}
+
+	[[ $1 == "user" ]] && {
+		cd ~/desktop/user
+		code . --reuse-window
+	}
+
+	code_edit $@
+}
+
+function view {
+	# todo list possible commands without params, or show a command in its location
+	pass
+}
+
+function save {
+	use git
+
+	git_commit_empty
+}
+
+function pull {
+	local -; set -o errexit
+	local -; set -o allexport
+
+	user_slug=$1
+	user_name=$( echo $slug | cut -d'/' -f1 )
+	user_repo=$( echo $slug | cut -d'/' -f2 )
+	[[ $user_slug == */* ]] || user_name=$GITHUB_USER
+	user_slug=$name/$repo
+
+	code_pull $@
+
+	cd ~/desktop/code/$slug
+
+	git ls-remote https://github.com/$USER/$repo > /dev/null 2>&1 && \
+	git ls-remote https://github.com/$TEAM/$repo > /dev/null 2>&1 && {
+		git remote show origin > /dev/null && git remote rm origin
+		git remote add                  origin git@github.com:$TEAM/$repo.git
+		git remote set-url --add --push origin git@github.com:$TEAM/$repo.git
+		git remote set-url --add --push origin git@github.com:$USER/$repo.git
+		git push --set-upstream origin main
+	}
+
+	return 0
+}
+
+function push {
+	pass
+}
+
+function sync {
+	use git
+
+	git_sync
+}
